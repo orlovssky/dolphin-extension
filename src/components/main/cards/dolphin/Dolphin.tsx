@@ -31,7 +31,7 @@ const Dolphin = () => {
       .loadProfile({
         dolphinToken: dolphinToken.trim(),
       })
-      .then(({ success, errorCode }) => {
+      .then(({ success }) => {
         if (success) {
           dolphinTokenRef.current = dolphinToken.trim();
         } else {
@@ -39,10 +39,10 @@ const Dolphin = () => {
         }
       })
       .catch(({ errorCode }) => {
-        let messageNode = "common.dolphin.connectionNotEstablished";
+        let messageNode = "dolphin.connectionNotEstablished";
 
         if (errorCode === ERRORS.NO_TOKEN_DATA) {
-          messageNode = "common.dolphin.invalidDolphinToken";
+          messageNode = "dolphin.invalidDolphinToken";
         }
 
         setError({ show: true, messageNode });
@@ -61,19 +61,18 @@ const Dolphin = () => {
   }, []);
 
   return (
-    <Card titleNode="common.dolphin.connection">
+    <Card titleNode="dolphin.connection">
       <TextField
         value={dolphinToken}
-        label={t("common.dolphin.token")}
+        label={t("dolphin.token")}
         fullWidth
         size="small"
         InputProps={{
-          endAdornment: (
+          endAdornment: Boolean(dolphinToken) && (
             <InputAdornment position="end">
               <IconButton
                 edge="end"
                 size="small"
-                disabled={!dolphinToken}
                 onClick={() => {
                   setDolphinToken("");
                 }}
@@ -110,13 +109,13 @@ const Dolphin = () => {
         </>
       )}
 
-      {Boolean(tokenContext?.isConnected) && (
-        <Alert sx={{ mt: 1 }} severity="success">
-          {`${t("common.dolphin.connectionEstablishedWithUsername")} ${
-            tokenContext?.data?.username
-          }`}
-        </Alert>
-      )}
+      {/*{Boolean(tokenContext?.isConnected) && (*/}
+      {/*  <Alert sx={{ mt: 1 }} severity="success">*/}
+      {/*    {`${t("common.dolphin.connectionEstablishedWithUsername")} ${*/}
+      {/*      tokenContext?.data?.username*/}
+      {/*    }`}*/}
+      {/*  </Alert>*/}
+      {/*)}*/}
     </Card>
   );
 };

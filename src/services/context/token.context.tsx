@@ -1,4 +1,6 @@
 import axios from "axios";
+import SnackBar from "components/common/bars/SnackBar";
+import { useTranslation } from "react-i18next";
 import {
   useState,
   createContext,
@@ -14,10 +16,14 @@ import { ITokenContext, TLoadProfile } from "types/main/token.types";
 
 const emptyData = {
   username: "",
+  host: "",
+  authorization: "",
 };
 const TokenContext = createContext<ITokenContext | null>(null);
 
 const TokenProvider = ({ children }: { children: ReactNode }) => {
+  const { t } = useTranslation();
+  const [snackBarOpened, setSnackBarOpened] = useState(false);
   const [isConnected, setIsConnected] = useState(false);
   const [loading, setLoading] = useState(false);
   const [data, setData] = useState({ ...emptyData });
@@ -61,7 +67,9 @@ const TokenProvider = ({ children }: { children: ReactNode }) => {
         setIsConnected(true);
         setData({
           username: data.data.login,
+          ...tokenData,
         });
+        setSnackBarOpened(true);
 
         return {
           success: true,
@@ -102,7 +110,17 @@ const TokenProvider = ({ children }: { children: ReactNode }) => {
 
   return (
     <TokenContext.Provider value={contextValue}>
-      {children}
+      <>
+        <SnackBar
+          text={t("dolphin.connectionEstablished")}
+          isOpened={snackBarOpened}
+          onClose={() => {
+            setSnackBarOpened(false);
+          }}
+        />
+
+        {children}
+      </>
     </TokenContext.Provider>
   );
 };

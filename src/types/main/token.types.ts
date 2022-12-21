@@ -17,6 +17,6 @@ export interface ITokenContext {
   loading: boolean;
   data: {
     username: string;
-  };
+  } & ITokenData;
   loadProfile: TLoadProfile;
 }

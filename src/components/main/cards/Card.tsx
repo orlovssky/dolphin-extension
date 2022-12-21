@@ -18,7 +18,7 @@ const Card = ({
   return (
     <MuiCard {...cardProps} variant="outlined">
       <CardContent>
-        <Typography gutterBottom variant="subtitle1" component="h3">
+        <Typography variant="subtitle1" component="h3" sx={{ mb: 1.5 }}>
           {t(titleNode)}
         </Typography>
 

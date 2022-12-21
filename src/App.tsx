@@ -5,9 +5,8 @@ import TokenProvider from "services/context/token.context";
 
 const App = () => (
   <ThemeProvider>
-    <AppBar />
-
     <TokenProvider>
+      <AppBar />
       <Main />
     </TokenProvider>
   </ThemeProvider>
