@@ -1,0 +1,14 @@
+{
+	"common.connect": "加入",
+	"common.dolphin.connection": "Dolphin服务器连接",
+	"common.dolphin.connectionEstablishedWithUsername": "Dolphin服务器连接建立成功。用户：",
+	"common.dolphin.connectionNotEstablished": "Dolphin服务器连接未建立",
+	"common.dolphin.invalidDolphinToken": "Invalid Dolphin token",
+	"common.dolphin.token": "Dolphin的访问令牌",
+	"common.extension": "Extension",
+	"common.fb.token": "访问令牌 (fb acces token)",
+	"common.fb.tokenNotFound": "Facebook的访问令牌未找到",
+	"common.themeModes.dark": "Dark",
+	"common.themeModes.light": "Light",
+	"common.themeModes.system": "System"
+}

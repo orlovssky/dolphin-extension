@@ -1,0 +1,14 @@
+{
+	"common.connect": "Подключиться",
+	"common.dolphin.connection": "Соединение с Dolphin",
+	"common.dolphin.connectionEstablishedWithUsername": "Cвязь с Dolphin установлена. Пользователь:",
+	"common.dolphin.connectionNotEstablished": "Не удалось соединиться с Dolphin",
+	"common.dolphin.invalidDolphinToken": "Неверный токен Dolphin",
+	"common.dolphin.token": "Токен Dolphin",
+	"common.extension": "Расширение",
+	"common.fb.token": "Токен ФБ",
+	"common.fb.tokenNotFound": "Токен ФБ не найден",
+	"common.themeModes.dark": "Темная",
+	"common.themeModes.light": "Светлая",
+	"common.themeModes.system": "Системная"
+}

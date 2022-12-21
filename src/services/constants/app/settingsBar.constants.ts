@@ -1,0 +1,3 @@
+const DRAWER_OPENED_WIDTH = 240;
+
+export { DRAWER_OPENED_WIDTH };

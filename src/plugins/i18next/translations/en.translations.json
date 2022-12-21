@@ -1,0 +1,14 @@
+{
+	"common.connect": "Connect",
+	"common.dolphin.connection": "Dolphin connection",
+	"common.dolphin.connectionEstablishedWithUsername": "Dolphin connection established. User:",
+	"common.dolphin.connectionNotEstablished": "Dolphin connection not established",
+	"common.dolphin.invalidDolphinToken": "Invalid Dolphin token",
+	"common.dolphin.token": "Dolphin token",
+	"common.extension": "Extension",
+	"common.fb.token": "Facebook Token",
+	"common.fb.tokenNotFound": "Facebook token not found",
+	"common.themeModes.dark": "Dark",
+	"common.themeModes.light": "Light",
+	"common.themeModes.system": "System"
+}
