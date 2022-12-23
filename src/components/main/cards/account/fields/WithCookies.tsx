@@ -1,11 +1,11 @@
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Switch from "@mui/material/Switch";
-import { IForm } from "components/main/cards/account/form";
-import { Control, Controller } from "react-hook-form";
+import { Controller, useFormContext } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 
-const WithCookies = ({ control }: { control: Control<IForm> }) => {
+const WithCookies = () => {
   const { t } = useTranslation();
+  const { control } = useFormContext();
 
   return (
     <Controller

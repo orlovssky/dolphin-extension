@@ -4,54 +4,18 @@ import IconButton from "@mui/material/IconButton";
 import SnackBar from "components/common/bars/SnackBar";
 import Card from "components/main/cards/Card";
 import { useTranslation } from "react-i18next";
-import { useEffect, useState } from "react";
-
-import InjectionResult = chrome.scripting.InjectionResult;
+import { useState } from "react";
+import { useFbTokenContext } from "services/context/fbToken.context";
 
 const FbToken = () => {
   const { t } = useTranslation();
+  const fbToken = useFbTokenContext();
   const [snackBarOpened, setSnackBarOpened] = useState(false);
-  const [fbToken, setFbToken] = useState("");
   const handleClick = () => {
     navigator.clipboard.writeText(fbToken).then(() => {
       setSnackBarOpened(true);
     });
   };
-  const getCurrentTabInfo = async () => {
-    return await chrome.tabs.query({ active: true, currentWindow: true });
-  };
-
-  useEffect(() => {
-    getCurrentTabInfo().then(([tab]) => {
-      if (!tab.id) return;
-
-      const executeScriptCallback = (results: InjectionResult<string[]>[]) => {
-        if (!Array.isArray(results) || !results.length) return;
-
-        for (const string of results[0].result) {
-          if (!string.includes("window.__accessToken")) continue;
-
-          const matchedFbToken = string.match(/"EA[A-Za-z0-9]{20,}/gm);
-
-          if (matchedFbToken) {
-            setFbToken(matchedFbToken[0].substring(1));
-            break;
-          }
-        }
-      };
-
-      chrome.scripting.executeScript(
-        {
-          target: { tabId: tab.id },
-          func: () =>
-            Array.from(document.getElementsByTagName("script")).map(
-              (h) => h.innerHTML
-            ),
-        },
-        executeScriptCallback
-      );
-    });
-  }, []);
 
   return (
     <Card titleNode="fb.token" cardProps={{ sx: { mb: 1 } }}>

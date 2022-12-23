@@ -23,10 +23,16 @@ const Dolphin = () => {
   const dolphinTokenRef = useRef("");
   const [dolphinToken, setDolphinToken] = useState("");
   const [error, setError] = useState({ ...emptyError });
+  const clearError = () => {
+    if (error.show) {
+      setError({ ...emptyError });
+    }
+  };
   const handleClick = () => {
     if (!tokenContext) return;
 
-    setError({ ...emptyError });
+    clearError();
+
     tokenContext
       .loadProfile({
         dolphinToken: dolphinToken.trim(),
@@ -74,6 +80,7 @@ const Dolphin = () => {
                 edge="end"
                 size="small"
                 onClick={() => {
+                  clearError();
                   setDolphinToken("");
                 }}
               >
@@ -83,6 +90,7 @@ const Dolphin = () => {
           ),
         }}
         onChange={({ target }: ChangeEvent<HTMLInputElement>) => {
+          clearError();
           setDolphinToken(target.value);
         }}
       />
@@ -108,14 +116,6 @@ const Dolphin = () => {
           )}
         </>
       )}
-
-      {/*{Boolean(tokenContext?.isConnected) && (*/}
-      {/*  <Alert sx={{ mt: 1 }} severity="success">*/}
-      {/*    {`${t("common.dolphin.connectionEstablishedWithUsername")} ${*/}
-      {/*      tokenContext?.data?.username*/}
-      {/*    }`}*/}
-      {/*  </Alert>*/}
-      {/*)}*/}
     </Card>
   );
 };

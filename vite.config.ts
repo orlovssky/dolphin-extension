@@ -13,7 +13,7 @@ const manifest = {
   action: {
     default_popup: "index.html",
   },
-  permissions: ["tabs", "scripting", "storage"],
+  permissions: ["tabs", "scripting", "storage", "cookies"],
   host_permissions: ["https://*.facebook.com/*"],
   icons: {
     "16": "assets/icons/main16.png",

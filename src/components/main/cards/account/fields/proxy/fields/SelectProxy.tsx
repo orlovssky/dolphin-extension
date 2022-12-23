@@ -1,16 +1,17 @@
 import Autocomplete from "@mui/material/Autocomplete";
 import TextField from "@mui/material/TextField";
 import axios from "axios";
-import { IForm } from "components/main/cards/account/form";
-import { Control, Controller } from "react-hook-form";
+import { Controller, Message, useFormContext } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { useEffect, useState } from "react";
 import { useTokenContext } from "services/context/token.context";
+import { ISelectedProxy } from "types/main/account/proxy.types";
 
-const Tags = ({ control }: { control: Control<IForm> }) => {
+const SelectProxy = () => {
   const { t } = useTranslation();
   const tokenContext = useTokenContext();
-  const [items, setItems] = useState<IForm["tags"]>([]);
+  const { control } = useFormContext();
+  const [items, setItems] = useState<ISelectedProxy[]>([]);
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
@@ -18,7 +19,7 @@ const Tags = ({ control }: { control: Control<IForm> }) => {
       const { data } = tokenContext;
 
       setLoading(true);
-      axios(`${data.host}/tags?only_from=accounts`, {
+      axios(`${data.host}/proxy`, {
         headers: { Authorization: data.authorization },
       })
         .finally(() => {
@@ -34,24 +35,39 @@ const Tags = ({ control }: { control: Control<IForm> }) => {
 
   return (
     <Controller
-      name="tags"
+      name="selectedProxy"
       control={control}
-      render={({ field }) => (
+      rules={{
+        required: t("validation.required", {
+          field: t("common.proxy.proxy").toLowerCase(),
+        }) as Message,
+      }}
+      render={({ field, fieldState: { error } }) => (
         <Autocomplete
           sx={{ mt: 1.5 }}
           value={field.value}
           options={items}
+          getOptionLabel={({ name, type, ip, port }) =>
+            name || `${type}://${ip}:${port}`
+          }
           fullWidth
-          multiple
           loading={loading}
           renderInput={(params) => (
-            <TextField {...params} label={t("common.tags")} size="small" />
+            <TextField
+              {...params}
+              label={t("common.proxy.proxy")}
+              size="small"
+              error={Boolean(error)}
+              helperText={error?.message}
+            />
           )}
-          onChange={(_, value) => field.onChange(value)}
+          onChange={(_, value) => {
+            field.onChange(value);
+          }}
         />
       )}
     />
   );
 };
 
-export default Tags;
+export default SelectProxy;

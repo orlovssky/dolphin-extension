@@ -49,6 +49,10 @@ const ThemeProvider = ({ children }: { children: ReactNode }) => {
       createTheme(
         {
           palette: { mode: getPaletteMode() },
+          typography: {
+            fontFamily:
+              "'NotoSans', 'Roboto', 'Helvetica', 'Arial', sans-serif",
+          },
         },
         localizations[i18n.language as LOCALES]
       ),
