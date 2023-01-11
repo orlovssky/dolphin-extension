@@ -11,11 +11,11 @@ const Locale = () => {
   const handleChange = (event: MouseEvent<HTMLElement>, value: LOCALES) => {
     if (!value || value === i18n.language) return;
 
-    chrome.storage.local
-      .set({ [LOCAL_STORAGE.LOCALE]: value })
-      .then(async () => {
-        await i18n.changeLanguage(value);
+    chrome.storage.local.set({ [LOCAL_STORAGE.LOCALE]: value }).then(() => {
+      i18n.changeLanguage(value).then(() => {
+        // do nothing
       });
+    });
   };
   const getLocaleText = (locale: LOCALES): string => {
     switch (locale) {

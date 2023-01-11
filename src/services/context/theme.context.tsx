@@ -63,6 +63,16 @@ const ThemeProvider = ({ children }: { children: ReactNode }) => {
     chrome.storage.local.get([LOCAL_STORAGE.THEME_MODE]).then((result) => {
       setThemeMode(result[LOCAL_STORAGE.THEME_MODE]);
     });
+
+    chrome.storage.local.get([LOCAL_STORAGE.LOCALE]).then((result) => {
+      const storedLocale = result[LOCAL_STORAGE.LOCALE];
+
+      if (storedLocale) {
+        i18n.changeLanguage(storedLocale).then(() => {
+          // do nothing
+        });
+      }
+    });
   }, []);
 
   return (

@@ -1,27 +1,27 @@
-// noinspection JSUnusedGlobalSymbols
-
 import { crx } from "@crxjs/vite-plugin";
 import react from "@vitejs/plugin-react";
+import { createHtmlPlugin } from "vite-plugin-html";
 import tsconfigPaths from "vite-tsconfig-paths";
-import { defineConfig } from "vite";
+import { defineConfig, loadEnv } from "vite";
 
-const manifest = {
-  manifest_version: 3,
-  name: "Dolphin",
-  description: "Поиск токена ФБ и быстрое добавление аккаунтов в твой Dolphin",
-  version: "3.0.0",
-  action: {
-    default_popup: "index.html",
-  },
-  permissions: ["tabs", "scripting", "storage", "cookies"],
-  host_permissions: ["https://*.facebook.com/*"],
-  icons: {
-    "16": "assets/icons/main16.png",
-    "48": "assets/icons/main48.png",
-    "128": "assets/icons/main128.png",
-  },
-};
+import manifest from "./manifest";
+import BUILD_OPTIONS from "./src/services/constants/app/buildOptions.constants";
 
-export default defineConfig({
-  plugins: [react(), tsconfigPaths(), crx({ manifest })],
+export default defineConfig(({ mode }) => {
+  const env = loadEnv(mode, process.cwd(), "");
+
+  return {
+    plugins: [
+      react(),
+      tsconfigPaths(),
+      crx({ manifest }),
+      createHtmlPlugin({
+        minify: true,
+        entry:
+          env.BUILD_FOR === BUILD_OPTIONS.server
+            ? "./src/builds/server/main"
+            : "./src/builds/anty/main",
+      }),
+    ],
+  };
 });

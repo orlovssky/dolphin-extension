@@ -21,7 +21,7 @@ const ThemeMode = () => {
 
   return (
     <ToggleButtonGroup
-      value={themeContext ? themeContext.mode : THEME_MODES.LIGHT}
+      value={themeContext?.mode ? themeContext.mode : THEME_MODES.LIGHT}
       exclusive
       color="primary"
       orientation="vertical"
