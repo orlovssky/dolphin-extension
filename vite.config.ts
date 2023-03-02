@@ -6,23 +6,19 @@ import { defineConfig, loadEnv } from "vite";
 import { createHtmlPlugin } from "vite-plugin-html";
 import tsconfigPaths from "vite-tsconfig-paths";
 
-import manifest from "./src/builds/server/manifest";
-import BUILD_OPTIONS from "./src/services/constants/app/buildOptions.constants";
-
 export default defineConfig(({ mode }) => {
-  const env = loadEnv(mode, process.cwd(), "");
+  const { BUILD_FOR } = loadEnv(mode, process.cwd(), "");
 
   return {
     plugins: [
       react(),
       tsconfigPaths(),
-      crx({ manifest }),
+      crx({
+        manifest: import(`./src/app/${BUILD_FOR}/manifest.ts`),
+      }),
       createHtmlPlugin({
         minify: true,
-        entry:
-          env.BUILD_FOR === BUILD_OPTIONS.server
-            ? "./src/builds/server/main"
-            : "./src/builds/anty/main",
+        entry: `./src/app/${BUILD_FOR}/main.tsx`,
       }),
     ],
   };
