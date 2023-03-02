@@ -1,10 +1,10 @@
-import CardContent from "@mui/material/CardContent";
 import Card from "@mui/material/Card";
+import CardContent from "@mui/material/CardContent";
 import Mode, {
   MODES,
 } from "components/main/cards/account/fields/proxy/fields/Mode";
-import SelectProxy from "components/main/cards/account/fields/proxy/fields/SelectProxy";
 import NewProxy from "components/main/cards/account/fields/proxy/fields/newProxy/NewProxy";
+import SelectProxy from "components/main/cards/account/fields/proxy/fields/SelectProxy";
 import { useFormContext } from "react-hook-form";
 
 const Proxy = () => {

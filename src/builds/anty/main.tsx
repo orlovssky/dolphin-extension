@@ -1,7 +1,7 @@
 import "assets/styles/main.css";
 import "plugins/i18next";
-import ReactDOM from "react-dom/client";
 import React from "react";
+import ReactDOM from "react-dom/client";
 
 import App from "./App";
 

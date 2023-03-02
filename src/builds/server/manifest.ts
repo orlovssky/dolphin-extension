@@ -9,8 +9,8 @@ export default {
   permissions: ["tabs", "scripting", "storage", "cookies"],
   host_permissions: ["https://*.facebook.com/*"],
   icons: {
-    16: "static/icons/main16.png",
-    48: "static/icons/main48.png",
-    128: "static/icons/main128.png",
+    16: "static/mainIcons/16.png",
+    48: "static/mainIcons/48.png",
+    128: "static/mainIcons/128.png",
   },
 };

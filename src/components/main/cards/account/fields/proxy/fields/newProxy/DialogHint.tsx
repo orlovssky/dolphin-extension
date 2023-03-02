@@ -1,7 +1,7 @@
 import Button from "@mui/material/Button";
 import CardContent from "@mui/material/CardContent";
-import DialogActions from "@mui/material/DialogActions";
 import Dialog from "@mui/material/Dialog";
+import DialogActions from "@mui/material/DialogActions";
 import Typography from "@mui/material/Typography";
 import { useTranslation } from "react-i18next";
 

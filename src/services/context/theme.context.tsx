@@ -3,7 +3,6 @@ import {
   ThemeProvider as MuiThemeProvider,
 } from "@mui/material/styles";
 import useMediaQuery from "@mui/material/useMediaQuery";
-import { useTranslation } from "react-i18next";
 import {
   useState,
   createContext,
@@ -12,8 +11,9 @@ import {
   useContext,
   useEffect,
 } from "react";
-import { LOCAL_STORAGE } from "services/constants/app/localStorage.constants";
+import { useTranslation } from "react-i18next";
 import { LOCALES } from "services/constants/app/locale.constants";
+import { LOCAL_STORAGE } from "services/constants/app/localStorage.constants";
 import { THEME_MODES } from "services/constants/app/theme.constants";
 import { localizations } from "services/static/app/locale.static";
 
@@ -83,4 +83,5 @@ const ThemeProvider = ({ children }: { children: ReactNode }) => {
 };
 
 export const useThemeContext = () => useContext(ThemeContext);
+
 export default ThemeProvider;

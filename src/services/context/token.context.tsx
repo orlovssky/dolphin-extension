@@ -1,6 +1,5 @@
 import axios from "axios";
 import SnackBar from "components/common/bars/SnackBar";
-import { useTranslation } from "react-i18next";
 import {
   useState,
   createContext,
@@ -9,6 +8,7 @@ import {
   useContext,
   useEffect,
 } from "react";
+import { useTranslation } from "react-i18next";
 import { ERRORS } from "services/constants/app/error.constants";
 import { LOCAL_STORAGE } from "services/constants/app/localStorage.constants";
 import { extractData } from "services/utils/main/token/extractData.utils";
@@ -126,4 +126,5 @@ const TokenProvider = ({ children }: { children: ReactNode }) => {
 };
 
 export const useTokenContext = () => useContext(TokenContext);
+
 export default TokenProvider;

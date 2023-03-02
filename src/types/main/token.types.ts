@@ -4,6 +4,7 @@ export interface ITokenData {
   host: string;
   authorization: string;
 }
+
 export type TLoadProfile = ({
   dolphinToken,
   initial,
@@ -11,7 +12,9 @@ export type TLoadProfile = ({
   dolphinToken: string;
   initial?: boolean;
 }) => Promise<{ success: boolean; errorCode?: ERRORS }>;
+
 export type TExtractData = (dolphinToken: string) => ITokenData | null;
+
 export interface ITokenContext {
   isConnected: boolean;
   loading: boolean;

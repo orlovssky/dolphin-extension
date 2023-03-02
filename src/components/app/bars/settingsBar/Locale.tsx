@@ -1,9 +1,9 @@
-import ToggleButtonGroup from "@mui/material/ToggleButtonGroup";
 import ToggleButton from "@mui/material/ToggleButton";
-import { useTranslation } from "react-i18next";
+import ToggleButtonGroup from "@mui/material/ToggleButtonGroup";
 import { MouseEvent, createElement } from "react";
-import { LOCAL_STORAGE } from "services/constants/app/localStorage.constants";
+import { useTranslation } from "react-i18next";
 import { LOCALES } from "services/constants/app/locale.constants";
+import { LOCAL_STORAGE } from "services/constants/app/localStorage.constants";
 import { locales, icons } from "services/static/app/locale.static";
 
 const Locale = () => {

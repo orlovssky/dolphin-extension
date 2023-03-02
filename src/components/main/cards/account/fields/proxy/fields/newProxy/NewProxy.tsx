@@ -6,9 +6,9 @@ import Switch from "@mui/material/Switch";
 import TextField from "@mui/material/TextField";
 import DialogChangeIpUrl from "components/main/cards/account/fields/proxy/fields/newProxy/DialogChangeIpUrl";
 import DialogHint from "components/main/cards/account/fields/proxy/fields/newProxy/DialogHint";
+import { useState } from "react";
 import { Controller, Message, useFormContext } from "react-hook-form";
 import { useTranslation } from "react-i18next";
-import { useState } from "react";
 
 const NewProxy = () => {
   const { t } = useTranslation();

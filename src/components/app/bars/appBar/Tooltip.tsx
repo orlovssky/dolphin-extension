@@ -1,8 +1,8 @@
 import MuiTooltip from "@mui/material/Tooltip";
 import MuiTypography from "@mui/material/Typography";
 import SnackBar from "components/common/bars/SnackBar";
-import { useTranslation } from "react-i18next";
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 
 const Tooltip = ({ username }: { username: string }) => {
   const { t } = useTranslation();

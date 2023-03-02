@@ -1,12 +1,12 @@
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import DoNotDisturbAltIcon from "@mui/icons-material/DoNotDisturbAlt";
 import PanToolAltOutlinedIcon from "@mui/icons-material/PanToolAltOutlined";
-import ToggleButtonGroup from "@mui/material/ToggleButtonGroup";
 import ToggleButton from "@mui/material/ToggleButton";
+import ToggleButtonGroup from "@mui/material/ToggleButtonGroup";
 import Typography from "@mui/material/Typography";
+import { createElement } from "react";
 import { Controller, useFormContext } from "react-hook-form";
 import { useTranslation } from "react-i18next";
-import { createElement } from "react";
 import { LOCALES } from "services/constants/app/locale.constants";
 
 export enum MODES {

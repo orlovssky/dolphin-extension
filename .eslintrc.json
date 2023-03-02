@@ -8,19 +8,270 @@
     "plugin:react/recommended",
     "plugin:react/jsx-runtime",
     "plugin:@typescript-eslint/recommended",
-    "plugin:prettier/recommended"
+    "prettier"
   ],
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
+    "project": "./tsconfig.json",
     "ecmaVersion": "latest",
     "sourceType": "module",
-    "ecmaFeatures": { "jsx": true }
+    "ecmaFeatures": {
+      "jsx": true
+    }
   },
-  "plugins": ["arca"],
+  "plugins": [
+    "prettier",
+    "import",
+    "import-public-api"
+  ],
   "rules": {
-    "arca/import-ordering": 2,
-    "arca/newline-after-import-section": 2,
-    "@typescript-eslint/no-non-null-assertion": "off",
-    "react/self-closing-comp": ["error", { "component": true, "html": true }]
-  }
+    "prettier/prettier": "error",
+    "max-lines": [
+      "error",
+      {
+        "max": 100,
+        "skipBlankLines": true
+      }
+    ],
+    "padding-line-between-statements": [
+      "error",
+      { "blankLine": "always", "prev": "*", "next": "export" },
+      { "blankLine": "always", "prev": "*", "next": "if" },
+      { "blankLine": "always", "prev": "if", "next": "*" },
+      { "blankLine": "always", "prev": "*", "next": "switch" },
+      { "blankLine": "always", "prev": "switch", "next": "*" },
+      { "blankLine": "always", "prev": "*", "next": "return" }
+    ],
+    "react/function-component-definition": [
+      "error",
+      {
+        "namedComponents": "arrow-function",
+        "unnamedComponents": "arrow-function"
+      }
+    ],
+    "import/newline-after-import": "error",
+    "import/no-duplicates": "error",
+    "import/order": [
+      "error",
+      {
+        "newlines-between": "always",
+        "groups": [
+          ["builtin"],
+          ["external"],
+          ["parent", "sibling", "index"]
+        ],
+        "alphabetize": {
+          "order": "asc",
+          "caseInsensitive": true
+        }
+      }
+    ],
+    "import-public-api/no-relative-public-api": "error"
+  },
+  "overrides": [
+    {
+      "files": [ "src/shared/**" ],
+      "rules": {
+        "no-restricted-imports": [
+          "error",
+          {
+            "patterns": [
+              {
+                "group": ["*/../../**"],
+                "message": "Using more than 2 parent directories is restricted."
+              },
+              {
+                "group": [ "**/shared/**" ],
+                "message": "Using same level directory is restricted."
+              },
+              {
+                "group": [
+                  "**/entities/**",
+                  "**/features/**",
+                  "**/widgets/**",
+                  "**/pages/**",
+                  "**/processes/**",
+                  "**/app/**"
+                ],
+                "message": "Using upper level directory is restricted."
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "files": [ "src/entities/**" ],
+      "rules": {
+        "no-restricted-imports": [
+          "error",
+          {
+            "patterns": [
+              {
+                "group": ["*/../../**"],
+                "message": "Using more than 2 parent directories is restricted."
+              },
+              {
+                "group": [ "**/entities/**" ],
+                "message": "Using same level directory is restricted."
+              },
+              {
+                "group": [
+                  "**/features/**",
+                  "**/widgets/**",
+                  "**/pages/**",
+                  "**/processes/**",
+                  "**/app/**"
+                ],
+                "message": "Using upper level directory is restricted."
+              }
+            ]
+          }
+        ],
+        "import-public-api/import-only-from-public-api": [
+          "error", [ "shared" ]
+        ]
+      }
+    },
+    {
+      "files": [ "src/features/**" ],
+      "rules": {
+        "no-restricted-imports": [
+          "error",
+          {
+            "patterns": [
+              {
+                "group": ["*/../../**"],
+                "message": "Using more than 2 parent directories is restricted."
+              },
+              {
+                "group": [ "**/features/**" ],
+                "message": "Using same level directory is restricted."
+              },
+              {
+                "group": [
+                  "**/widgets/**",
+                  "**/pages/**",
+                  "**/processes/**",
+                  "**/app/**"
+                ],
+                "message": "Using upper level directory is restricted."
+              }
+            ]
+          }
+        ],
+        "import-public-api/import-only-from-public-api": [
+          "error", [ "shared", "entities" ]
+        ]
+      }
+    },
+    {
+      "files": [ "src/widgets/**" ],
+      "rules": {
+        "no-restricted-imports": [
+          "error",
+          {
+            "patterns": [
+              {
+                "group": ["*/../../**"],
+                "message": "Using more than 2 parent directories is restricted."
+              },
+              {
+                "group": [ "**/widgets/**" ],
+                "message": "Using same level directory is restricted."
+              },
+              {
+                "group": [
+                  "**/pages/**",
+                  "**/processes/**",
+                  "**/app/**"
+                ],
+                "message": "Using upper level directory is restricted."
+              }
+            ]
+          }
+        ],
+        "import-public-api/import-only-from-public-api": [
+          "error", [ "shared", "entities", "features" ]
+        ]
+      }
+    },
+    {
+      "files": [ "src/pages/**" ],
+      "rules": {
+        "no-restricted-imports": [
+          "error",
+          {
+            "patterns": [
+              {
+                "group": ["*/../../**"],
+                "message": "Using more than 2 parent directories is restricted."
+              },
+              {
+                "group": [ "**/pages/**" ],
+                "message": "Using same level directory is restricted."
+              },
+              {
+                "group": [ "**/processes/**", "**/app/**" ],
+                "message": "Using upper level directory is restricted."
+              }
+            ]
+          }
+        ],
+        "import-public-api/import-only-from-public-api": [
+          "error", [ "shared", "entities", "features", "widgets" ]
+        ]
+      }
+    },
+    {
+      "files": [ "src/processes/**" ],
+      "rules": {
+        "no-restricted-imports": [
+          "error",
+          {
+            "patterns": [
+              {
+                "group": ["*/../../**"],
+                "message": "Using more than 2 parent directories is restricted."
+              },
+              {
+                "group": [ "**/processes/**" ],
+                "message": "Using same level directory is restricted."
+              },
+              {
+                "group": [ "**/app/**" ],
+                "message": "Using upper level directory is restricted."
+              }
+            ]
+          }
+        ],
+        "import-public-api/import-only-from-public-api": [
+          "error", [ "shared", "entities", "features", "widgets", "pages" ]
+        ]
+      }
+    },
+    {
+      "files": [ "src/app/**" ],
+      "rules": {
+        "no-restricted-imports": [
+          "error",
+          {
+            "patterns": [
+              {
+                "group": ["*/../../**"],
+                "message": "Using more than 2 parent directories is restricted."
+              },
+              {
+                "group": [ "**/app/**" ],
+                "message": "Using same level directory is restricted."
+              }
+            ]
+          }
+        ],
+        "import-public-api/import-only-from-public-api": [
+          "error", [ "shared", "entities", "features", "widgets", "pages", "processes" ]
+        ]
+      }
+    }
+  ]
 }

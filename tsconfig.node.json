@@ -5,5 +5,9 @@
     "moduleResolution": "Node",
     "allowSyntheticDefaultImports": true
   },
-  "include": ["vite.config.ts"]
+  "include": [
+    "src/builds/server/manifest.ts",
+    "src/services/constants/app/buildOptions.constants.ts",
+    "vite.config.ts"
+  ]
 }

@@ -6,9 +6,9 @@ import {
   useEffect,
 } from "react";
 import { getCurrentTabInfo } from "services/utils/browser/tab.utils";
+import { getUrlDomain } from "services/utils/browser/url.utils";
 
 import InjectionResult = chrome.scripting.InjectionResult;
-import { getUrlDomain } from "services/utils/browser/url.utils";
 
 const FbTokenContext = createContext("");
 
@@ -57,4 +57,5 @@ const FbTokenProvider = ({ children }: { children: ReactNode }) => {
 };
 
 export const useFbTokenContext = () => useContext(FbTokenContext);
+
 export default FbTokenProvider;

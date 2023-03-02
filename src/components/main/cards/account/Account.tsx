@@ -1,14 +1,14 @@
 import LoadingButton from "@mui/lab/LoadingButton";
 import Box from "@mui/material/Box";
 import SnackBar from "components/common/bars/SnackBar";
-import Card from "components/main/cards/Card";
 import AccountName from "components/main/cards/account/fields/AccountName";
+import { MODES } from "components/main/cards/account/fields/proxy/fields/Mode";
+import Proxy from "components/main/cards/account/fields/proxy/Proxy";
 import Tags from "components/main/cards/account/fields/Tags";
 import UserAgent from "components/main/cards/account/fields/UserAgent";
 import WithCookies from "components/main/cards/account/fields/WithCookies";
-import Proxy from "components/main/cards/account/fields/proxy/Proxy";
-import { MODES } from "components/main/cards/account/fields/proxy/fields/Mode";
 import formLogic from "components/main/cards/account/form.logic";
+import Card from "components/main/cards/Card";
 import { FormProvider, useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { IForm } from "types/main/account/form.types";

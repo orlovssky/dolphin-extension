@@ -1,8 +1,8 @@
-import CardContent from "@mui/material/CardContent";
 import MuiCard, { CardProps } from "@mui/material/Card";
+import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
-import { useTranslation } from "react-i18next";
 import { ReactNode } from "react";
+import { useTranslation } from "react-i18next";
 
 const Card = ({
   titleNode,

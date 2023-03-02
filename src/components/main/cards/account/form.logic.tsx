@@ -1,9 +1,9 @@
 import { AlertColor } from "@mui/material/Alert/Alert";
 import axios from "axios";
 import { MODES } from "components/main/cards/account/fields/proxy/fields/Mode";
+import { useState } from "react";
 import { Message, UseFormReturn } from "react-hook-form";
 import { useTranslation } from "react-i18next";
-import { useState } from "react";
 import { useFbTokenContext } from "services/context/fbToken.context";
 import { useTokenContext } from "services/context/token.context";
 import { getCookies } from "services/utils/browser/cookies.utils";
@@ -51,6 +51,7 @@ const formLogic = ({ formMethods }: { formMethods: UseFormReturn<IForm> }) => {
             field: t("common.proxy.proxy").toLowerCase(),
           }) as Message,
         });
+
         return;
       }
     }
