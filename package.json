@@ -20,7 +20,8 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-hook-form": "^7.43.3",
-    "react-i18next": "^12.2.0"
+    "react-i18next": "^12.2.0",
+    "zustand": "^4.3.5"
   },
   "devDependencies": {
     "@babel/core": "^7.21.0",
@@ -35,7 +36,7 @@
     "@vitejs/plugin-react": "^3.1.0",
     "eslint": "^8.35.0",
     "eslint-config-prettier": "^8.6.0",
-    "eslint-plugin-fsd-principles": "^0.0.1",
+    "eslint-plugin-fsd-principles": "^0.0.6",
     "eslint-plugin-import": "^2.27.5",
     "eslint-plugin-prettier": "^4.2.1",
     "eslint-plugin-react": "^7.32.2",

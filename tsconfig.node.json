@@ -7,7 +7,6 @@
   },
   "include": [
     "src/app/server/manifest.ts",
-    "src/services/constants/app/buildOptions.constants.ts",
-    "vite.config.ts"
+    "src/app/anty/manifest.ts",
   ]
 }

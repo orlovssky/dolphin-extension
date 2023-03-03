@@ -1,9 +1,10 @@
-import "plugins/i18next";
 import React from "react";
 import ReactDOM from "react-dom/client";
 
+import ThemeProvider from "../providers/ThemeProvider";
+
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <React.StrictMode>
-    <div>anty</div>
+    <ThemeProvider>anty</ThemeProvider>
   </React.StrictMode>
 );

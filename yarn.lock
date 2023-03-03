@@ -1594,10 +1594,10 @@ eslint-module-utils@^2.7.4:
   dependencies:
     debug "^3.2.7"
 
-eslint-plugin-fsd-principles@^0.0.1:
-  version "0.0.1"
-  resolved "https://registry.yarnpkg.com/eslint-plugin-fsd-principles/-/eslint-plugin-fsd-principles-0.0.1.tgz#69823c708366bd5b26bf843f2ac69176d69beff9"
-  integrity sha512-fu+wJhHLDqXXOWI+5yG42RyKSiAZ1mjH2Y3VDXamstYRUzJOXdHk/XDMVBJ+OdNiFxbSShg0b4glywxmWc9lcw==
+eslint-plugin-fsd-principles@^0.0.6:
+  version "0.0.6"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-fsd-principles/-/eslint-plugin-fsd-principles-0.0.6.tgz#8347c4bb6edd09f45685099c36dad99f07e9a758"
+  integrity sha512-ry+yqsPnSvxl7GxL+ssDnpLpF+Xk7NSKH3lcksfK1YRA6D+GeVVKsyx9he72Re02Ht6urNdJghHxkGIJWrCZ8A==
 
 eslint-plugin-import@^2.27.5:
   version "2.27.5"
@@ -3227,6 +3227,11 @@ uri-js@^4.2.2:
   dependencies:
     punycode "^2.1.0"
 
+use-sync-external-store@1.2.0:
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/use-sync-external-store/-/use-sync-external-store-1.2.0.tgz#7dbefd6ef3fe4e767a0cf5d7287aacfb5846928a"
+  integrity sha512-eEgnFxGQ1Ife9bzYs6VLi8/4X6CObHMw9Qr9tPY43iKwsPw8xE8+EFsf/2cFZ5S3esXgpWgtSCtLNS41F+sKPA==
+
 vite-plugin-html@^3.2.0:
   version "3.2.0"
   resolved "https://registry.yarnpkg.com/vite-plugin-html/-/vite-plugin-html-3.2.0.tgz#0d4df9900642a321a139f1c25c05195ba9d0ec79"
@@ -3335,3 +3340,10 @@ yocto-queue@^0.1.0:
   version "0.1.0"
   resolved "https://registry.yarnpkg.com/yocto-queue/-/yocto-queue-0.1.0.tgz#0294eb3dee05028d31ee1a5fa2c556a6aaf10a1b"
   integrity sha512-rVksvsnNCdJ/ohGc6xgPwyN8eheCxsiLM8mxuE/t/mOVqJewPuO1miLpTHQiRgTKCLexL4MeAFVagts7HmNZ2Q==
+
+zustand@^4.3.5:
+  version "4.3.5"
+  resolved "https://registry.yarnpkg.com/zustand/-/zustand-4.3.5.tgz#011d2997534f8a187ea7b1d75db56df31f58453d"
+  integrity sha512-2iPUzfwx+g3f0PagOMz2vDO9mZzEp2puFpNe7vrAymVPOEIEUjCPkC4/zy84eAscxIWmTU4j9g6upXYkJdzEFQ==
+  dependencies:
+    use-sync-external-store "1.2.0"
