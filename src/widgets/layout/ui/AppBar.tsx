@@ -1,8 +1,9 @@
 import MuiAppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
-import SettingsBar from "features/layout/settingsBar/publicApi";
 import { useTranslation } from "react-i18next";
+
+import SettingsBar from "./SettingsBar";
 
 const AppBar = () => {
   const { t } = useTranslation();

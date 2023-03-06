@@ -6,8 +6,8 @@ import { defineConfig, loadEnv } from "vite";
 import { createHtmlPlugin } from "vite-plugin-html";
 import tsconfigPaths from "vite-tsconfig-paths";
 
-import antyManifest from "./src/app/anty/manifest";
-import serverManifest from "./src/app/server/manifest";
+import antyManifest from "./src/app/entries/anty/manifest";
+import serverManifest from "./src/app/entries/server/manifest";
 
 const manifest: { [key: string]: ManifestV3Export } = {
   server: serverManifest,
@@ -16,7 +16,7 @@ const manifest: { [key: string]: ManifestV3Export } = {
 
 export default defineConfig(async ({ mode }) => {
   const { BUILD_FOR } = loadEnv(mode, process.cwd(), "");
-  const entry = `./src/app/${BUILD_FOR}/main.tsx`;
+  const entry = `./src/app/entries/${BUILD_FOR}/main.tsx`;
 
   return {
     plugins: [

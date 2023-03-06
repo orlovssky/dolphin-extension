@@ -23,6 +23,7 @@ i18n
       ru: { translation: ru },
       cn: { translation: cn },
     },
+    returnNull: false,
   })
   .then(() => {
     // do nothing

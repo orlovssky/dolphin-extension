@@ -1,10 +1,10 @@
-import React from "react";
+import { StrictMode } from "react";
 import ReactDOM from "react-dom/client";
 
-import ThemeProvider from "../providers/ThemeProvider";
+import ThemeProvider from "../../providers/ThemeProvider";
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
-  <React.StrictMode>
+  <StrictMode>
     <ThemeProvider>anty</ThemeProvider>
-  </React.StrictMode>
+  </StrictMode>
 );

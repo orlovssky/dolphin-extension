@@ -1,5 +1,4 @@
 import "../assets/styles/main.scss";
-import Box from "@mui/material/Box";
 import {
   ThemeProvider as MuiThemeProvider,
   createTheme,
@@ -18,12 +17,11 @@ import {
   getLocalThemeMode,
 } from "entities/layout/theme/publicApi";
 import { ReactNode, useEffect, useMemo } from "react";
-import AppBar from "widgets/layout/appBar/publicApi";
+import AppBar from "widgets/layout/publicApi";
 
 const ThemeProvider = ({ children }: { children: ReactNode }) => {
   const { mode, setMode } = useThemeStore((state) => state);
   const prefersDarkMode = useMediaQuery("(prefers-color-scheme: dark)");
-
   const generatePalette = () => {
     const palette = {
       mode: prefersDarkMode ? THEME_MODES.DARK : THEME_MODES.LIGHT,
@@ -35,7 +33,8 @@ const ThemeProvider = ({ children }: { children: ReactNode }) => {
 
     return palette;
   };
-  const theme = useMemo(
+
+  const muiTheme = useMemo(
     () =>
       createTheme(
         {
@@ -62,12 +61,10 @@ const ThemeProvider = ({ children }: { children: ReactNode }) => {
   }, []);
 
   return (
-    <MuiThemeProvider theme={theme}>
+    <MuiThemeProvider theme={muiTheme}>
       <AppBar />
       <Toolbar variant="dense" />
-      <Box component="main" sx={{ p: 2 }}>
-        {children}
-      </Box>
+      {children}
     </MuiThemeProvider>
   );
 };

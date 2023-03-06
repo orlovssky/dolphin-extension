@@ -3,11 +3,14 @@ import SettingsIcon from "@mui/icons-material/Settings";
 import Box from "@mui/material/Box";
 import Drawer from "@mui/material/Drawer";
 import IconButton from "@mui/material/IconButton";
+import Typography from "@mui/material/Typography";
 import Locale from "entities/layout/locale/publicApi";
 import Theme from "entities/layout/theme/publicApi";
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 
 const SettingsBar = () => {
+  const { t } = useTranslation();
   const [isOpened, setIsOpened] = useState(false);
 
   return (
@@ -30,6 +33,14 @@ const SettingsBar = () => {
             <IconButton sx={{ mr: 1 }} onClick={() => setIsOpened(false)}>
               <ChevronRightIcon />
             </IconButton>
+
+            <Typography
+              component="span"
+              variant="h6"
+              sx={{ verticalAlign: "middle" }}
+            >
+              {t("common.settings")}
+            </Typography>
           </Box>
 
           <Theme toggleButtonGroupProps={{ sx: { mb: 2 } }} />

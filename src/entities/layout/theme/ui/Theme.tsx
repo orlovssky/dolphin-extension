@@ -9,7 +9,7 @@ import { setLocalThemeMode } from "../lib/helpers/localThemeMode";
 import icons from "../lib/static/icons";
 import themeModes from "../lib/static/themeModes";
 import { TMode } from "../lib/typings/theme";
-import useThemeStore from "../model/store/theme";
+import useThemeStore from "../model/store/useThemeStore";
 
 const Theme = ({
   toggleButtonGroupProps,

@@ -6,7 +6,7 @@
     "allowSyntheticDefaultImports": true
   },
   "include": [
-    "src/app/server/manifest.ts",
-    "src/app/anty/manifest.ts",
+    "src/app/entries/server/manifest.ts",
+    "src/app/entries/anty/manifest.ts"
   ]
 }
