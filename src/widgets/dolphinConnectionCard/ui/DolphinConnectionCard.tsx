@@ -7,7 +7,7 @@ import TextField from "@mui/material/TextField";
 import {
   useDolphinTokenStore,
   useProfileByToken,
-  ERRORS,
+  DOLPHIN_DATA_ERRORS,
 } from "entities/dolphinData/publicApi";
 import { useSnackBarStore } from "entities/layout/snackBar/publicApi";
 import { ChangeEvent, useState } from "react";
@@ -37,10 +37,10 @@ const DolphinConnectionCard = () => {
         let message = t("common.somethingWentWrong");
 
         switch (error.message) {
-          case ERRORS.INVALID_TOKEN:
+          case DOLPHIN_DATA_ERRORS.INVALID_TOKEN:
             message = t("dolphin.invalidDolphinToken");
             break;
-          case ERRORS.PROFILE_RESPONSE_NOT_SUCCESS:
+          case DOLPHIN_DATA_ERRORS.PROFILE_RESPONSE_NOT_SUCCESS:
             message = t("dolphin.connectionNotEstablished");
             break;
         }

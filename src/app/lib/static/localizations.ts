@@ -1,6 +1,5 @@
 import { enUS, ruRU, zhCN } from "@mui/material/locale";
-
-import LOCALES from "../constants/LOCALES";
+import { LOCALES } from "entities/layout/locale/publicApi";
 
 export default {
   [LOCALES.ENGLISH]: enUS,

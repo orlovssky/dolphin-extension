@@ -5,12 +5,7 @@ import {
 } from "@mui/material/styles";
 import Toolbar from "@mui/material/Toolbar";
 import useMediaQuery from "@mui/material/useMediaQuery";
-import {
-  i18n,
-  localizations,
-  TLocale,
-  getLocalLocale,
-} from "entities/layout/locale/publicApi";
+import { TLocale, getLocalLocale } from "entities/layout/locale/publicApi";
 import {
   THEME_MODES,
   useThemeStore,
@@ -18,6 +13,9 @@ import {
 } from "entities/layout/theme/publicApi";
 import { ReactNode, useEffect, useMemo } from "react";
 import AppBar from "widgets/layout/publicApi";
+
+import i18n from "../lib/i18next";
+import localizations from "../lib/static/localizations";
 
 const ThemeProvider = ({ children }: { children: ReactNode }) => {
   const { mode, setMode } = useThemeStore((state) => state);

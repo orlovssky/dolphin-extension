@@ -4,9 +4,6 @@ export { default as useDolphinProfileStore } from "./model/store/useDolphinProfi
 
 export { default as useProfileByToken } from "./lib/hooks/useProfileByToken";
 
-export {
-  getLocalDolphinToken,
-  removeLocalDolphinToken,
-} from "./lib/helpers/localDolphinToken";
+export { default as useClearData } from "./lib/hooks/useClearData";
 
-export { default as ERRORS } from "./lib/constants/ERRORS";
+export { default as DOLPHIN_DATA_ERRORS } from "./lib/constants/ERRORS";

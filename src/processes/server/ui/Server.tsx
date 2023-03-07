@@ -3,8 +3,6 @@ import CircularProgress from "@mui/material/CircularProgress";
 import { useTheme } from "@mui/material/styles";
 import {
   useProfileByToken,
-  getLocalDolphinToken,
-  removeLocalDolphinToken,
   useDolphinProfileStore,
 } from "entities/dolphinData/publicApi";
 import Snackbar, { useSnackBarStore } from "entities/layout/snackBar/publicApi";
@@ -24,21 +22,17 @@ const Server = () => {
 
   useEffect(() => {
     setLoading(true);
-    getLocalDolphinToken().then((dolphinToken) => {
-      getProfileByToken(dolphinToken)
-        .finally(() => {
-          setLoading(false);
-        })
-        .then(() => {
-          openSnackBar({
-            message: t("dolphin.connectionEstablished"),
-            severity: "success",
-          });
-        })
-        .catch(() => {
-          removeLocalDolphinToken();
+
+    getProfileByToken()
+      .finally(() => {
+        setLoading(false);
+      })
+      .then(() => {
+        openSnackBar({
+          message: t("dolphin.connectionEstablished"),
+          severity: "success",
         });
-    });
+      });
   }, []);
 
   return (
