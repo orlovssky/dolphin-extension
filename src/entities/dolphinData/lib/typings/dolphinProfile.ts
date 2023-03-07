@@ -1,6 +1,7 @@
 interface IProfile {
   id: string;
   login: string;
+  display_name: string;
 }
 
 export interface IResponseProfile {
@@ -11,4 +12,5 @@ export interface IResponseProfile {
 export interface IStore {
   profile: IProfile | null;
   setProfile: (profile: IProfile) => void;
+  clearProfile: () => void;
 }

@@ -2,6 +2,11 @@ export { default as useDolphinTokenStore } from "./model/store/useDolphinTokenSt
 
 export { default as useDolphinProfileStore } from "./model/store/useDolphinProfileStore";
 
-export { default as getProfileByDolphinToken } from "./api/requests/getProfileByDolphinToken";
+export { default as useProfileByToken } from "./lib/hooks/useProfileByToken";
+
+export {
+  getLocalDolphinToken,
+  removeLocalDolphinToken,
+} from "./lib/helpers/localDolphinToken";
 
 export { default as ERRORS } from "./lib/constants/ERRORS";

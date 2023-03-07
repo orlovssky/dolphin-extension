@@ -49,14 +49,14 @@ const ThemeProvider = ({ children }: { children: ReactNode }) => {
   );
 
   useEffect(() => {
+    getLocalThemeMode().then((themeMode) => {
+      setMode(themeMode);
+    });
+
     getLocalLocale().then((locale) => {
       i18n.changeLanguage(locale).then(() => {
         // do nothing
       });
-    });
-
-    getLocalThemeMode().then((themeMode) => {
-      setMode(themeMode);
     });
   }, []);
 

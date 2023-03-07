@@ -1,20 +1,19 @@
 import MuiAppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
-import Typography from "@mui/material/Typography";
-import { useTranslation } from "react-i18next";
+import { useDolphinProfileStore } from "entities/dolphinData/publicApi";
 
 import SettingsBar from "./SettingsBar";
+import SignOut from "./SignOut";
+import Title from "./Title";
 
 const AppBar = () => {
-  const { t } = useTranslation();
+  const profile = useDolphinProfileStore((state) => state.profile);
 
   return (
     <MuiAppBar elevation={0} enableColorOnDark>
       <Toolbar variant="dense" sx={{ justifyContent: "space-between" }}>
-        <Typography variant="h6" component="h1" noWrap>
-          {t("common.authorization")}
-        </Typography>
-
+        {profile?.id && <SignOut />}
+        <Title />
         <SettingsBar />
       </Toolbar>
     </MuiAppBar>

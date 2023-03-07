@@ -5,6 +5,7 @@ import { IStore } from "../../lib/typings/dolphinToken";
 const useDolphinTokenStore = create<IStore>((set) => ({
   dolphinToken: "",
   setDolphinToken: (dolphinToken) => set(() => ({ dolphinToken })),
+  clearDolphinToken: () => set(() => ({ dolphinToken: "" })),
 }));
 
 export default useDolphinTokenStore;

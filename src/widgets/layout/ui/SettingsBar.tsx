@@ -1,5 +1,5 @@
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
-import SettingsIcon from "@mui/icons-material/Settings";
+import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
 import Box from "@mui/material/Box";
 import Drawer from "@mui/material/Drawer";
 import IconButton from "@mui/material/IconButton";
@@ -16,7 +16,7 @@ const SettingsBar = () => {
   return (
     <>
       <IconButton color="inherit" onClick={() => setIsOpened(true)}>
-        <SettingsIcon />
+        <SettingsOutlinedIcon />
       </IconButton>
 
       <Drawer anchor="right" open={isOpened} onClose={() => setIsOpened(false)}>

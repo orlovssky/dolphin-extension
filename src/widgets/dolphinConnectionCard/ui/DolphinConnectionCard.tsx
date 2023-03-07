@@ -1,51 +1,53 @@
 import ClearIcon from "@mui/icons-material/Clear";
 import LoadingButton from "@mui/lab/LoadingButton";
-import Alert from "@mui/material/Alert";
 import Box from "@mui/material/Box";
 import IconButton from "@mui/material/IconButton";
 import InputAdornment from "@mui/material/InputAdornment";
 import TextField from "@mui/material/TextField";
 import {
   useDolphinTokenStore,
-  useDolphinProfileStore,
-  getProfileByDolphinToken,
+  useProfileByToken,
   ERRORS,
 } from "entities/dolphinData/publicApi";
-import { ChangeEvent, useEffect, useState } from "react";
+import { useSnackBarStore } from "entities/layout/snackBar/publicApi";
+import { ChangeEvent, useState } from "react";
 import { useTranslation } from "react-i18next";
 import Card from "shared/ui/card/publicApi";
 
 const DolphinConnectionCard = () => {
   const { t } = useTranslation();
-  const setProfile = useDolphinProfileStore((state) => state.setProfile);
-  const { dolphinToken, setDolphinToken } = useDolphinTokenStore(
-    (state) => state
-  );
+  const dolphinToken = useDolphinTokenStore((state) => state.dolphinToken);
+  const openSnackBar = useSnackBarStore((state) => state.openSnackBar);
+  const getProfileByToken = useProfileByToken();
   const [token, setToken] = useState("");
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState("");
   const handleClick = () => {
     setLoading(true);
-    setError("");
-    getProfileByDolphinToken({ token, setProfile, setDolphinToken })
+    getProfileByToken(token)
       .finally(() => {
         setLoading(false);
       })
+      .then(() => {
+        openSnackBar({
+          message: t("dolphin.connectionEstablished"),
+          severity: "success",
+        });
+      })
       .catch((error) => {
+        let message = t("common.somethingWentWrong");
+
         switch (error.message) {
           case ERRORS.INVALID_TOKEN:
-            setError(t("dolphin.invalidDolphinToken"));
+            message = t("dolphin.invalidDolphinToken");
             break;
           case ERRORS.PROFILE_RESPONSE_NOT_SUCCESS:
-            setError(t("dolphin.connectionNotEstablished"));
+            message = t("dolphin.connectionNotEstablished");
             break;
         }
+
+        openSnackBar({ message, severity: "error" });
       });
   };
-
-  useEffect(() => {
-    setError("");
-  }, [token]);
 
   return (
     <Card title={t("dolphin.connection")}>
@@ -85,12 +87,6 @@ const DolphinConnectionCard = () => {
           {t("common.connect")}
         </LoadingButton>
       </Box>
-
-      {Boolean(error) && (
-        <Alert sx={{ mt: 1 }} severity="error">
-          {error}
-        </Alert>
-      )}
     </Card>
   );
 };
