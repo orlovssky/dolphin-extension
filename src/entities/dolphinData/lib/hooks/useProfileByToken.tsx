@@ -15,18 +15,21 @@ const useProfileByToken = () => {
   );
 
   return (token?: string) => {
-    if (!token) {
+    if (token === undefined) {
       return getLocalDolphinToken().then((dolphinToken) => {
         return getProfileByToken(dolphinToken)
           .then(({ data: { success, data: profile } }) => {
             if (success) {
               setProfile(profile);
+              setDolphinToken(dolphinToken);
             } else {
               throw new Error(ERRORS.PROFILE_RESPONSE_NOT_SUCCESS);
             }
           })
-          .catch(() => {
+          .catch((error) => {
             removeLocalDolphinToken();
+
+            throw error;
           });
       });
     } else {
