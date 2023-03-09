@@ -6,13 +6,11 @@ import { useEffect, useState } from "react";
 import { Controller, useFormContext } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 
-import { IForm } from "../ui/AddAccountCard";
-
 const Tags = () => {
   const { t } = useTranslation();
   const dolphinTokenData = useDolphinTokenData();
   const { control } = useFormContext();
-  const [items, setItems] = useState<IForm["tags"]>([]);
+  const [items, setItems] = useState<string[]>([]);
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
@@ -40,6 +38,7 @@ const Tags = () => {
       control={control}
       render={({ field }) => (
         <Autocomplete
+          key={JSON.stringify(field.value)}
           sx={{ mt: 1.5 }}
           value={field.value}
           options={items}

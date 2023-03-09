@@ -4,9 +4,10 @@ import Typography from "@mui/material/Typography";
 import { useFormContext } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 
-import Mode, { MODES } from "./Mode";
+import Mode from "./Mode";
 import NewProxy from "./NewProxy";
 import SelectProxy from "./SelectProxy";
+import MODES from "../../lib/constants/PROXY_MODES";
 
 const Proxy = () => {
   const { t } = useTranslation();

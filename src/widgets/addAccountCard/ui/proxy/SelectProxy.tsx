@@ -6,16 +6,8 @@ import { useEffect, useState } from "react";
 import { Controller, Message, useFormContext } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 
-export interface ISelectedProxy {
-  id?: number;
-  name: string | null;
-  type: string;
-  ip: string;
-  port: number;
-  login: string | null;
-  password: string | null;
-  change_ip_url: string | null;
-}
+import { ISelectedProxy } from "../../lib/typings/proxy";
+
 const SelectProxy = () => {
   const { t } = useTranslation();
   const dolphinTokenData = useDolphinTokenData();

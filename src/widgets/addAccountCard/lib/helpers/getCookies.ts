@@ -1,21 +1,4 @@
-import psl from "psl";
-
-const getCurrentTabInfo = () => {
-  return chrome.tabs.query({
-    active: true,
-    currentWindow: true,
-  });
-};
-const getUrlDomain = (url: string) => {
-  const { host } = new URL(url);
-  const parsed = psl.parse(host);
-
-  if ("domain" in parsed) {
-    return parsed.domain;
-  }
-
-  return null;
-};
+import { getUrlDomain, getCurrentTabInfo } from "shared/utils/chrome/publicApi";
 
 export const getCookies = async () => {
   const [tab] = await getCurrentTabInfo();

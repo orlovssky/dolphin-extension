@@ -1,4 +1,4 @@
-import psl from "psl";
+import { getUrlDomain, getCurrentTabInfo } from "shared/utils/chrome/publicApi";
 
 import InjectionResult = chrome.scripting.InjectionResult;
 
@@ -15,24 +15,6 @@ const executeScript = (tabId: number): Promise<InjectionResult<string[]>[]> => {
       resolve
     );
   });
-};
-
-const getCurrentTabInfo = () => {
-  return chrome.tabs.query({
-    active: true,
-    currentWindow: true,
-  });
-};
-
-const getUrlDomain = (url: string) => {
-  const { host } = new URL(url);
-  const parsed = psl.parse(host);
-
-  if ("domain" in parsed) {
-    return parsed.domain;
-  }
-
-  return null;
 };
 
 const findAccessToken = ([{ result }]: InjectionResult<

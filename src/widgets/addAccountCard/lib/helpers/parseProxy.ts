@@ -1,12 +1,4 @@
-interface IProxy {
-  name: string;
-  type: "http" | "socks5";
-  host: string;
-  port: number;
-  login: string;
-  password: string;
-  changeIpUrl: string;
-}
+import { IProxy } from "../typings/proxy";
 
 const emptyProxy: IProxy = {
   name: "",
