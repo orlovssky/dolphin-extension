@@ -28,8 +28,10 @@ const FacebookTokenCard = () => {
   }, []);
 
   return (
-    <Card title={t("fb.token")}>
-      {!accessToken && <Alert severity="error">{t("fb.tokenNotFound")}</Alert>}
+    <Card title={t("facebook.token")} cardProps={{ sx: { mb: 1 } }}>
+      {!accessToken && (
+        <Alert severity="error">{t("facebook.tokenNotFound")}</Alert>
+      )}
 
       {Boolean(accessToken) && (
         <Alert

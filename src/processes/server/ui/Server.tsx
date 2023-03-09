@@ -9,6 +9,7 @@ import Snackbar, { useSnackBarStore } from "entities/layout/snackBar/publicApi";
 import { THEME_MODES } from "entities/layout/theme/publicApi";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
+import AddAccountCard from "widgets/addAccountCard/publicApi";
 import DolphinConnectionCard from "widgets/dolphinConnectionCard/publicApi";
 import FacebookTokenCard from "widgets/facebookTokenCard/publicApi";
 
@@ -19,6 +20,20 @@ const Server = () => {
   const openSnackBar = useSnackBarStore((state) => state.openSnackBar);
   const getProfileByToken = useProfileByToken();
   const [loading, setLoading] = useState(false);
+  const renderContent = () => {
+    if (loading) {
+      return <CircularProgress />;
+    } else if (profile) {
+      return (
+        <>
+          <FacebookTokenCard />
+          <AddAccountCard />
+        </>
+      );
+    } else {
+      return <DolphinConnectionCard />;
+    }
+  };
 
   useEffect(() => {
     setLoading(true);
@@ -54,15 +69,7 @@ const Server = () => {
       }}
     >
       <Snackbar />
-
-      {loading && <CircularProgress />}
-
-      {!loading && (
-        <>
-          {!profile && <DolphinConnectionCard />}
-          {profile && <FacebookTokenCard />}
-        </>
-      )}
+      {renderContent()}
     </Box>
   );
 };
