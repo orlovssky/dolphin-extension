@@ -3,7 +3,7 @@ import TextField from "@mui/material/TextField";
 import axios from "axios";
 import { useDolphinTokenData } from "entities/dolphinData/publicApi";
 import { useEffect, useState } from "react";
-import { Controller, Message, useFormContext } from "react-hook-form";
+import { Controller, useFormContext } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 
 import { ISelectedProxy } from "../../lib/typings/proxy";
@@ -42,10 +42,11 @@ const SelectProxy = () => {
       rules={{
         required: t("validation.required", {
           field: t("proxy.proxy").toLowerCase(),
-        }) as Message,
+        }),
       }}
       render={({ field, fieldState: { error } }) => (
         <Autocomplete
+          key={JSON.stringify(field.value)}
           sx={{ mt: 1.5 }}
           value={field.value}
           options={items}
