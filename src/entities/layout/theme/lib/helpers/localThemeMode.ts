@@ -3,15 +3,17 @@ import { TMode } from "../typings/theme";
 
 const KEY = "dolphin-theme-mode";
 
-export const getLocalThemeMode = async (): Promise<TMode> => {
-  const result = await chrome.storage.local.get([KEY]);
-  let mode = MODES.SYSTEM;
-
-  if (result[KEY]) {
-    mode = result[KEY];
-  }
-
-  return mode;
+export const getLocalThemeMode = (): Promise<TMode> => {
+  return new Promise((resolve, reject) => {
+    chrome.storage.local
+      .get([KEY])
+      .then((result) => {
+        resolve(result[KEY]);
+      })
+      .catch(() => {
+        reject(MODES.SYSTEM);
+      });
+  });
 };
 
 export const setLocalThemeMode = (value: TMode) => {

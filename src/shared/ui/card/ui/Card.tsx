@@ -11,23 +11,16 @@ const Card = ({
   title: string;
   children: ReactNode;
   cardProps?: CardProps;
-}) => {
-  const defaultCardProps: CardProps = {
-    variant: "outlined",
-    ...cardProps,
-  };
+}) => (
+  <MuiCard variant="outlined" {...cardProps}>
+    <CardContent>
+      <Typography variant="subtitle1" component="h3" sx={{ mb: 1.5 }}>
+        {title}
+      </Typography>
 
-  return (
-    <MuiCard {...defaultCardProps}>
-      <CardContent>
-        <Typography variant="subtitle1" component="h3" sx={{ mb: 1.5 }}>
-          {title}
-        </Typography>
-
-        {children}
-      </CardContent>
-    </MuiCard>
-  );
-};
+      {children}
+    </CardContent>
+  </MuiCard>
+);
 
 export default Card;

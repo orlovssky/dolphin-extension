@@ -1,14 +1,16 @@
 const KEY = "dolphin-token";
 
-export const getLocalDolphinToken = async (): Promise<string> => {
-  const result = await chrome.storage.local.get([KEY]);
-  let dolphinToken = "";
-
-  if (result[KEY]) {
-    dolphinToken = result[KEY];
-  }
-
-  return dolphinToken;
+export const getLocalDolphinToken = (): Promise<string> => {
+  return new Promise((resolve, reject) => {
+    chrome.storage.local
+      .get([KEY])
+      .then((result) => {
+        resolve(result[KEY]);
+      })
+      .catch(() => {
+        reject();
+      });
+  });
 };
 
 export const removeLocalDolphinToken = () => {

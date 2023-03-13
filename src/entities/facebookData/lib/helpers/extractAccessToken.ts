@@ -1,4 +1,4 @@
-import { getUrlDomain, getCurrentTabInfo } from "shared/utils/chrome/publicApi";
+import { getCurrentTabInfo } from "shared/utils/chrome/publicApi";
 
 import InjectionResult = chrome.scripting.InjectionResult;
 
@@ -11,7 +11,10 @@ const executeScriptFunc = () => {
 const executeScript = (tabId: number): Promise<InjectionResult<string[]>[]> => {
   return new Promise((resolve) => {
     chrome.scripting.executeScript(
-      { target: { tabId }, func: executeScriptFunc },
+      {
+        target: { tabId },
+        func: executeScriptFunc,
+      },
       resolve
     );
   });
@@ -20,35 +23,39 @@ const executeScript = (tabId: number): Promise<InjectionResult<string[]>[]> => {
 const findAccessToken = ([{ result }]: InjectionResult<
   string[]
 >[]): Promise<string> => {
-  for (const string of result) {
-    if (!string.includes("window.__accessToken")) continue;
+  return new Promise((resolve, reject) => {
+    for (const string of result) {
+      if (!string.includes("window.__accessToken")) {
+        continue;
+      }
 
-    const matchedFbToken = string.match(/"EA[A-Za-z0-9]{20,}/gm);
+      const matchedFbToken = string.match(/"EA[A-Za-z0-9]{20,}/gm);
 
-    if (matchedFbToken) {
-      return Promise.resolve(matchedFbToken[0].substring(1));
+      if (matchedFbToken) {
+        resolve(matchedFbToken[0].substring(1));
+
+        return;
+      }
     }
-  }
 
-  return Promise.reject("Access token not found");
+    reject("Access token not found");
+  });
 };
 
-const extractAccessToken = async (): Promise<string> => {
-  const [tab] = await getCurrentTabInfo();
-
-  if (!tab.id) {
-    return Promise.reject("No tab id");
-  }
-
-  if (!tab.url) {
-    return Promise.reject("No tab url");
-  }
-
-  if (!getUrlDomain(tab.url)?.includes("facebook")) {
-    return Promise.reject("Not facebook url");
-  }
-
-  return findAccessToken(await executeScript(tab.id));
+const extractAccessToken = (): Promise<string> => {
+  return new Promise((resolve, reject) => {
+    getCurrentTabInfo().then(({ tabId }) => {
+      executeScript(tabId).then((results) => {
+        findAccessToken(results)
+          .then((accessToken) => {
+            resolve(accessToken);
+          })
+          .catch((error) => {
+            reject(error);
+          });
+      });
+    });
+  });
 };
 
 export default extractAccessToken;

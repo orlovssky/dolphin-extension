@@ -1,17 +1,24 @@
 import { getUrlDomain, getCurrentTabInfo } from "shared/utils/chrome/publicApi";
 
-export const getCookies = async () => {
-  const [tab] = await getCurrentTabInfo();
+import Cookie = chrome.cookies.Cookie;
 
-  if (tab.url) {
-    const domain = getUrlDomain(tab.url);
+export const getCookies = (): Promise<Cookie[] | null> => {
+  return new Promise((resolve) => {
+    getCurrentTabInfo().then(({ tabUrl }) => {
+      const domain = getUrlDomain(tabUrl);
 
-    if (domain) {
-      return await chrome.cookies.getAll({
-        domain,
-      });
-    }
-  }
-
-  return null;
+      if (domain) {
+        chrome.cookies
+          .getAll({ domain })
+          .then((cookies) => {
+            resolve(cookies);
+          })
+          .catch(() => {
+            resolve(null);
+          });
+      } else {
+        resolve(null);
+      }
+    });
+  });
 };

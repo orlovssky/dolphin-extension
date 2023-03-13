@@ -26,7 +26,6 @@ const useAddAccount = ({
     defaultValues: structuredClone(emptyForm),
   });
   const onSubmit = (form: IForm) => {
-    console.log(form);
     const data: IPostData = {
       access_token: accessToken,
       name: form.accountName,

@@ -17,12 +17,6 @@ const Locale = ({
   toggleButtonGroupProps?: ToggleButtonGroupProps;
 }) => {
   const { i18n } = useTranslation();
-  const defaultToggleButtonGroupProps: ToggleButtonGroupProps = {
-    color: "primary",
-    orientation: "vertical",
-    exclusive: true,
-    ...toggleButtonGroupProps,
-  };
   const handleChange = (event: MouseEvent<HTMLElement>, value: TLocale) => {
     if (!value || value === i18n.language) return;
 
@@ -43,7 +37,10 @@ const Locale = ({
 
   return (
     <ToggleButtonGroup
-      {...defaultToggleButtonGroupProps}
+      color="primary"
+      orientation="vertical"
+      exclusive
+      {...toggleButtonGroupProps}
       value={i18n.language as TLocale}
       onChange={handleChange}
     >

@@ -9,19 +9,17 @@ const UserAgent = () => {
   const { control, setValue } = useFormContext();
 
   useEffect(() => {
-    getCurrentTabInfo().then(([tab]) => {
-      if (tab.id) {
-        chrome.scripting.executeScript(
-          {
-            target: { tabId: tab.id },
-            func: () => window.navigator.userAgent,
-          },
-          (results) => {
-            if (Array.isArray(results) && results.length)
-              setValue("userAgent", results[0].result);
-          }
-        );
-      }
+    getCurrentTabInfo().then(({ tabId }) => {
+      chrome.scripting.executeScript(
+        {
+          target: { tabId },
+          func: () => window.navigator.userAgent,
+        },
+        (results) => {
+          if (Array.isArray(results) && results.length)
+            setValue("userAgent", results[0].result);
+        }
+      );
     });
   }, []);
 

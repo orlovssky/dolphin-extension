@@ -18,12 +18,6 @@ const Theme = ({
 }) => {
   const { t } = useTranslation();
   const { mode, setMode } = useThemeStore((state) => state);
-  const defaultToggleButtonGroupProps: ToggleButtonGroupProps = {
-    color: "primary",
-    orientation: "vertical",
-    exclusive: true,
-    ...toggleButtonGroupProps,
-  };
   const handleChange = (event: MouseEvent<HTMLElement>, value: TMode) => {
     if (!value || value === mode) return;
 
@@ -33,7 +27,10 @@ const Theme = ({
 
   return (
     <ToggleButtonGroup
-      {...defaultToggleButtonGroupProps}
+      color="primary"
+      orientation="vertical"
+      exclusive
+      {...toggleButtonGroupProps}
       value={mode}
       onChange={handleChange}
     >

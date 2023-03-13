@@ -14,7 +14,7 @@ const manifest: { [key: string]: ManifestV3Export } = {
   anty: antyManifest,
 };
 
-export default defineConfig(async ({ mode }) => {
+export default defineConfig(({ mode }) => {
   const { BUILD_FOR } = loadEnv(mode, process.cwd(), "");
   const entry = `./src/app/entries/${BUILD_FOR}/main.tsx`;
 
