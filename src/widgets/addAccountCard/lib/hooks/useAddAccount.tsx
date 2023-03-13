@@ -5,6 +5,7 @@ import { useTranslation } from "react-i18next";
 import PROXY_MODES from "../constants/PROXY_MODES";
 import { getCookies } from "../helpers/getCookies";
 import parseProxy from "../helpers/parseProxy";
+import emptyForm from "../static/emptyForm";
 import { IPostData } from "../typings/account";
 import { IForm } from "../typings/form";
 
@@ -22,11 +23,10 @@ const useAddAccount = ({
   const { t } = useTranslation();
   const accessToken = useAccessTokenStore((state) => state.accessToken);
   const formMethods = useForm<IForm>({
-    defaultValues: {
-      proxyMode: PROXY_MODES.SELECT_PROXY,
-    },
+    defaultValues: structuredClone(emptyForm),
   });
   const onSubmit = (form: IForm) => {
+    console.log(form);
     const data: IPostData = {
       access_token: accessToken,
       name: form.accountName,

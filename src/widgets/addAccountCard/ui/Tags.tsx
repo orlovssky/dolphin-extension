@@ -38,7 +38,6 @@ const Tags = () => {
       control={control}
       render={({ field }) => (
         <Autocomplete
-          key={JSON.stringify(field.value)}
           sx={{ mt: 1.5 }}
           value={field.value}
           options={items}
@@ -54,7 +53,9 @@ const Tags = () => {
               helperText={t("common.optional")}
             />
           )}
-          onChange={(_, value) => field.onChange(value)}
+          onChange={(_, value) => {
+            field.onChange(value);
+          }}
         />
       )}
     />

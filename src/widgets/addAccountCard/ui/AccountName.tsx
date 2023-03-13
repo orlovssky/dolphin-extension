@@ -1,24 +1,33 @@
 import TextField from "@mui/material/TextField";
-import { useFormContext } from "react-hook-form";
+import { Controller, useFormContext } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 
 const AccountName = () => {
   const { t } = useTranslation();
-  const { register, formState, getFieldState } = useFormContext();
-  const { error } = getFieldState("accountName", formState);
+  const { control } = useFormContext();
 
   return (
-    <TextField
-      {...register("accountName", {
+    <Controller
+      name="accountName"
+      control={control}
+      rules={{
         required: t("validation.required", {
           field: t("common.accountName").toLowerCase(),
         }),
-      })}
-      size="small"
-      label={t("common.accountName")}
-      fullWidth
-      error={Boolean(error)}
-      helperText={error?.message}
+      }}
+      render={({ field, fieldState: { error } }) => (
+        <TextField
+          value={field.value}
+          size="small"
+          label={t("common.accountName")}
+          fullWidth
+          error={Boolean(error)}
+          helperText={error?.message}
+          onChange={({ target }) => {
+            field.onChange(target.value);
+          }}
+        />
+      )}
     />
   );
 };

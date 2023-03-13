@@ -14,6 +14,7 @@ import SendCookies from "./SendCookies";
 import Tags from "./Tags";
 import UserAgent from "./UserAgent";
 import useAddAccount from "../lib/hooks/useAddAccount";
+import emptyForm from "../lib/static/emptyForm";
 import { IPostData } from "../lib/typings/account";
 import { IForm } from "../lib/typings/form";
 
@@ -39,13 +40,16 @@ const AddAccountCard = () => {
         .finally(() => {
           setLoading(false);
         })
-        .then(({ data }) => {
-          if (data.success) {
+        .then(({ data: { success } }) => {
+          if (success) {
             openSnackBar({
               message: t("common.addAccountSuccess"),
               severity: "success",
             });
-            reset();
+            reset({
+              ...structuredClone(emptyForm),
+              userAgent: data.useragent,
+            });
           } else {
             throw new Error("Not success");
           }

@@ -36,7 +36,6 @@ const UserAgent = () => {
       }}
       render={({ field, fieldState: { error } }) => (
         <TextField
-          key={JSON.stringify(field.value)}
           sx={{ mt: 1 }}
           value={field.value}
           size="small"
@@ -44,7 +43,9 @@ const UserAgent = () => {
           fullWidth
           error={Boolean(error)}
           helperText={error?.message}
-          onChange={({ target }) => field.onChange(target.value)}
+          onChange={({ target }) => {
+            field.onChange(target.value);
+          }}
         />
       )}
     />

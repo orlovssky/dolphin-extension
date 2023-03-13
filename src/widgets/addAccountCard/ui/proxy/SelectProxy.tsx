@@ -46,7 +46,6 @@ const SelectProxy = () => {
       }}
       render={({ field, fieldState: { error } }) => (
         <Autocomplete
-          key={JSON.stringify(field.value)}
           sx={{ mt: 1.5 }}
           value={field.value}
           options={items}

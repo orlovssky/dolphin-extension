@@ -2,17 +2,16 @@ import FormControlLabel from "@mui/material/FormControlLabel";
 import Switch from "@mui/material/Switch";
 import TextField from "@mui/material/TextField";
 import { useState } from "react";
-import { useFormContext } from "react-hook-form";
+import { Controller, useFormContext } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 
 import DialogChangeIpUrl from "./DialogChangeIpUrl";
 
 const NewProxyChangeIpUrl = () => {
   const { t } = useTranslation();
-  const { register, formState, getFieldState, setValue } = useFormContext();
+  const { setValue, control } = useFormContext();
   const [dialogChangeIpUrlOpened, setDialogChangeIpUrlOpened] = useState(false);
   const [withChangeIpUrl, setWithChangeIpUrl] = useState(false);
-  const { error: changeIpUrlError } = getFieldState("changeIpUrl", formState);
   const turnOffWithChangeIpUrl = () => {
     setValue("changeIpUrl", undefined);
     setWithChangeIpUrl(false);
@@ -49,18 +48,28 @@ const NewProxyChangeIpUrl = () => {
       />
 
       {Boolean(withChangeIpUrl) && (
-        <TextField
-          {...register("changeIpUrl", {
+        <Controller
+          name="changeIpUrl"
+          control={control}
+          rules={{
             required: t("validation.required", {
               field: t("proxy.changeIpUrl").toLowerCase(),
             }),
-          })}
-          sx={{ my: 1.5 }}
-          size="small"
-          label={t("proxy.changeIpUrl")}
-          fullWidth
-          error={Boolean(changeIpUrlError)}
-          helperText={changeIpUrlError?.message}
+          }}
+          render={({ field, fieldState: { error } }) => (
+            <TextField
+              sx={{ my: 1.5 }}
+              value={field.value}
+              size="small"
+              label={t("proxy.changeIpUrl")}
+              fullWidth
+              error={Boolean(error)}
+              helperText={error?.message}
+              onChange={({ target }) => {
+                field.onChange(target.value);
+              }}
+            />
+          )}
         />
       )}
     </>
