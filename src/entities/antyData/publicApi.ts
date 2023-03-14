@@ -6,7 +6,7 @@ export { default as getAntyBaseUrl } from "./lib/helpers/getAntyBaseUrl";
 
 export { default as getAntyProfileID } from "./lib/helpers/getAntyProfileID";
 
-export { default as getDolphinToken } from "./lib/helpers/getDolphinToken";
+export { default as getAntyDolphinIntegrationToken } from "./lib/helpers/getAntyDolphinIntegrationToken";
 
 export { default as getUserLanguage } from "./lib/helpers/getUserLanguage";
 

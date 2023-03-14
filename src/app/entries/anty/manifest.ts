@@ -8,7 +8,7 @@ export default defineManifest(() => ({
   action: {
     default_popup: "index.html",
   },
-  permissions: ["tabs", "scripting", "storage", "cookies"],
+  permissions: ["tabs", "scripting", "storage", "cookies", "browsingData"],
   host_permissions: ["https://*.facebook.com/*"],
   icons: {
     16: "static/mainIcons/16.png",

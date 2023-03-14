@@ -1,4 +1,4 @@
-const getDolphinToken = () => {
+const getAntyDolphinIntegrationToken = (): Promise<string> => {
   return new Promise((resolve) => {
     chrome.systemPrivate.getAntyDolphinIntegrationToken((token) => {
       resolve(token);
@@ -6,4 +6,4 @@ const getDolphinToken = () => {
   });
 };
 
-export default getDolphinToken;
+export default getAntyDolphinIntegrationToken;
