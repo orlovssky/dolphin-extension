@@ -10,36 +10,52 @@ const getAntyData = (): Promise<{
   apiVersion: string;
 }> => {
   return new Promise((resolve, reject) => {
-    getAntyProfileID().then((id) => {
-      if (id) {
-        getAntyBaseUrl().then((baseUrl) => {
-          if (baseUrl) {
-            getAntyApiToken().then((apiToken) => {
-              if (apiToken) {
-                getAntyApiVersion().then((apiVersion) => {
-                  if (apiVersion) {
-                    resolve({
-                      id,
-                      baseUrl,
-                      apiToken,
-                      apiVersion,
-                    });
-                  } else {
-                    reject("No Anty Api Version");
-                  }
-                });
+    getAntyProfileID()
+      .then((id) => {
+        if (id) {
+          getAntyBaseUrl()
+            .then((baseUrl) => {
+              if (baseUrl) {
+                getAntyApiToken()
+                  .then((apiToken) => {
+                    if (apiToken) {
+                      getAntyApiVersion()
+                        .then((apiVersion) => {
+                          if (apiVersion) {
+                            resolve({
+                              id,
+                              baseUrl,
+                              apiToken,
+                              apiVersion,
+                            });
+                          } else {
+                            reject("No Anty Api Version");
+                          }
+                        })
+                        .catch(() => {
+                          reject("No Anty Api Version");
+                        });
+                    } else {
+                      reject("No Anty Api Token");
+                    }
+                  })
+                  .catch(() => {
+                    reject("No Anty Api Token");
+                  });
               } else {
-                reject("No Anty Api Token");
+                reject("No Anty Base Url");
               }
+            })
+            .catch(() => {
+              reject("No Anty Base Url");
             });
-          } else {
-            reject("No Anty Base Url");
-          }
-        });
-      } else {
+        } else {
+          reject("No Anty Profile ID");
+        }
+      })
+      .catch(() => {
         reject("No Anty Profile ID");
-      }
-    });
+      });
   });
 };
 

@@ -1,7 +1,10 @@
 import Box from "@mui/material/Box";
 import CircularProgress from "@mui/material/CircularProgress";
 import { useTheme } from "@mui/material/styles";
-import { getAntyDolphinIntegrationToken } from "entities/antyData/publicApi";
+import {
+  getAntyDolphinIntegrationToken,
+  useProfile,
+} from "entities/antyData/publicApi";
 import {
   useProfileByToken,
   useDolphinProfileStore,
@@ -10,6 +13,7 @@ import Snackbar, { useSnackBarStore } from "entities/layout/snackBar/publicApi";
 import { THEME_MODES } from "entities/layout/theme/publicApi";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
+import AddAccountCard from "widgets/addAccountCard/publicApi";
 import DolphinConnectionCard from "widgets/dolphinConnectionCard/publicApi";
 import FacebookTokenCard from "widgets/facebookTokenCard/publicApi";
 
@@ -19,6 +23,7 @@ const Anty = () => {
   const { profile } = useDolphinProfileStore((state) => state);
   const openSnackBar = useSnackBarStore((state) => state.openSnackBar);
   const getProfileByToken = useProfileByToken();
+  const getAntyProfile = useProfile();
   const [loading, setLoading] = useState(false);
   const renderContent = () => {
     if (loading) {
@@ -27,6 +32,7 @@ const Anty = () => {
       return (
         <>
           <FacebookTokenCard />
+          <AddAccountCard />
         </>
       );
     } else {
@@ -49,17 +55,19 @@ const Anty = () => {
   useEffect(() => {
     setLoading(true);
 
-    getAntyDolphinIntegrationToken()
-      .then((token) => {
-        if (token) {
-          handleGetProfileByToken(token);
-        } else {
-          throw new Error();
-        }
-      })
-      .catch(() => {
-        handleGetProfileByToken();
-      });
+    getAntyProfile().finally(() => {
+      getAntyDolphinIntegrationToken()
+        .then((token) => {
+          if (token) {
+            handleGetProfileByToken(token);
+          } else {
+            throw new Error();
+          }
+        })
+        .catch(() => {
+          handleGetProfileByToken();
+        });
+    });
   }, []);
 
   return (

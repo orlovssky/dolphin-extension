@@ -1,6 +1,7 @@
 import Autocomplete from "@mui/material/Autocomplete";
 import TextField from "@mui/material/TextField";
 import axios from "axios";
+import { useAntyProfileStore } from "entities/antyData/publicApi";
 import { useDolphinTokenData } from "entities/dolphinData/publicApi";
 import { useEffect, useState } from "react";
 import { Controller, useFormContext } from "react-hook-form";
@@ -8,6 +9,7 @@ import { useTranslation } from "react-i18next";
 
 const Tags = () => {
   const { t } = useTranslation();
+  const antyProfile = useAntyProfileStore((state) => state.profile);
   const dolphinTokenData = useDolphinTokenData();
   const { control } = useFormContext();
   const [items, setItems] = useState<string[]>([]);
@@ -26,7 +28,13 @@ const Tags = () => {
         })
         .then(({ data }) => {
           if (data.success && Array.isArray(data.data)) {
-            setItems(data.data);
+            let tags = data.data;
+
+            if (antyProfile?.tags && Array.isArray(antyProfile.tags)) {
+              tags = tags.concat(antyProfile.tags);
+            }
+
+            setItems(tags);
           }
         });
     }

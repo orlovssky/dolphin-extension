@@ -11,3 +11,7 @@ export { default as getAntyDolphinIntegrationToken } from "./lib/helpers/getAnty
 export { default as getUserLanguage } from "./lib/helpers/getUserLanguage";
 
 export { default as getAntyData } from "./lib/helpers/getAntyData";
+
+export { default as useProfile } from "./lib/hooks/useProfile";
+
+export { default as useAntyProfileStore } from "./model/store/useAntyProfileStore";

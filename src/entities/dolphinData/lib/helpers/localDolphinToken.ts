@@ -6,7 +6,7 @@ export const getLocalDolphinToken = (): Promise<string> => {
       if (result[KEY]) {
         resolve(result[KEY]);
       } else {
-        reject();
+        reject("No local dolphin token");
       }
     });
   });
