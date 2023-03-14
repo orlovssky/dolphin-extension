@@ -4,15 +4,12 @@ import { TLocale } from "../typings/locales";
 const KEY = "dolphin-locale";
 
 export const getLocalLocale = (): Promise<TLocale> => {
-  return new Promise((resolve, reject) => {
-    chrome.storage.local
-      .get([KEY])
-      .then((result) => {
+  return new Promise((resolve) => {
+    chrome.storage.local.get([KEY]).then((result) => {
+      if (result[KEY]) {
         resolve(result[KEY]);
-      })
-      .catch(() => {
-        reject(LOCALES.RUSSIAN);
-      });
+      }
+    });
   });
 };
 

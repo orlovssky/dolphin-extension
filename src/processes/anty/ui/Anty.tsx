@@ -51,8 +51,6 @@ const Anty = () => {
 
     getAntyDolphinIntegrationToken()
       .then((token) => {
-        console.log(token);
-
         if (token) {
           handleGetProfileByToken(token);
         } else {

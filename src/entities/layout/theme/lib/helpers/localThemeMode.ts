@@ -4,15 +4,12 @@ import { TMode } from "../typings/theme";
 const KEY = "dolphin-theme-mode";
 
 export const getLocalThemeMode = (): Promise<TMode> => {
-  return new Promise((resolve, reject) => {
-    chrome.storage.local
-      .get([KEY])
-      .then((result) => {
+  return new Promise((resolve) => {
+    chrome.storage.local.get([KEY]).then((result) => {
+      if (result[KEY]) {
         resolve(result[KEY]);
-      })
-      .catch(() => {
-        reject(MODES.SYSTEM);
-      });
+      }
+    });
   });
 };
 

@@ -2,14 +2,13 @@ const KEY = "dolphin-token";
 
 export const getLocalDolphinToken = (): Promise<string> => {
   return new Promise((resolve, reject) => {
-    chrome.storage.local
-      .get([KEY])
-      .then((result) => {
+    chrome.storage.local.get([KEY]).then((result) => {
+      if (result[KEY]) {
         resolve(result[KEY]);
-      })
-      .catch(() => {
+      } else {
         reject();
-      });
+      }
+    });
   });
 };
 
