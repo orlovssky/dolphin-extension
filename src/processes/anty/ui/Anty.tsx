@@ -32,7 +32,7 @@ const Anty = () => {
       return (
         <>
           <FacebookTokenCard />
-          <AddAccountCard />
+          <AddAccountCard isAnty />
         </>
       );
     } else {

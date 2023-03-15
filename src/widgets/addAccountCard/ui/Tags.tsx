@@ -7,7 +7,7 @@ import { useEffect, useState } from "react";
 import { Controller, useFormContext } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 
-const Tags = () => {
+const Tags = ({ isAnty }: { isAnty: boolean }) => {
   const { t } = useTranslation();
   const antyProfile = useAntyProfileStore((state) => state.profile);
   const dolphinTokenData = useDolphinTokenData();
@@ -30,7 +30,11 @@ const Tags = () => {
           if (data.success && Array.isArray(data.data)) {
             let tags = data.data;
 
-            if (antyProfile?.tags && Array.isArray(antyProfile.tags)) {
+            if (
+              isAnty &&
+              antyProfile?.tags &&
+              Array.isArray(antyProfile.tags)
+            ) {
               tags = tags.concat(antyProfile.tags);
             }
 

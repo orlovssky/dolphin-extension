@@ -1,5 +1,9 @@
 interface IProfile {
-  tags: string[];
+  tags?: string[];
+  useragent?: {
+    mode: string;
+    value: string;
+  };
 }
 
 export interface IResponseProfile {

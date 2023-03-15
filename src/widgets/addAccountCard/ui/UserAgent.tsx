@@ -1,14 +1,22 @@
 import TextField from "@mui/material/TextField";
+import { useAntyProfileStore } from "entities/antyData/publicApi";
 import { useEffect } from "react";
 import { Controller, useFormContext } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { getCurrentTabInfo } from "shared/utils/chrome/publicApi";
 
-const UserAgent = () => {
+const UserAgent = ({ isAnty }: { isAnty: boolean }) => {
   const { t } = useTranslation();
+  const antyProfile = useAntyProfileStore((state) => state.profile);
   const { control, setValue } = useFormContext();
 
   useEffect(() => {
+    if (isAnty && antyProfile?.useragent?.value) {
+      setValue("userAgent", antyProfile.useragent.value);
+
+      return;
+    }
+
     getCurrentTabInfo().then(({ tabId }) => {
       chrome.scripting.executeScript(
         {
@@ -16,8 +24,9 @@ const UserAgent = () => {
           func: () => window.navigator.userAgent,
         },
         (results) => {
-          if (Array.isArray(results) && results.length)
+          if (Array.isArray(results) && results.length) {
             setValue("userAgent", results[0].result);
+          }
         }
       );
     });
