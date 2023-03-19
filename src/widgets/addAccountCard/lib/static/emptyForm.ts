@@ -9,5 +9,6 @@ export default {
   selectedProxy: null,
   newProxy: "",
   newProxyName: "",
+  withChangeIpUrl: false,
   changeIpUrl: "",
 };

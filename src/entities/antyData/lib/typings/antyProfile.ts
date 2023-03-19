@@ -1,9 +1,12 @@
+import { IProxy } from "./proxy";
+
 interface IProfile {
   tags?: string[];
   useragent?: {
     mode: string;
     value: string;
   };
+  proxy: IProxy;
 }
 
 export interface IResponseProfile {

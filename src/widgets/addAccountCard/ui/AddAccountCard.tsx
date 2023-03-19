@@ -70,7 +70,7 @@ const AddAccountCard = ({ isAnty }: { isAnty?: boolean }) => {
         <form onSubmit={formMethods.handleSubmit(onSubmit)}>
           <AccountName />
           <UserAgent isAnty={Boolean(isAnty)} />
-          <Proxy />
+          <Proxy isAnty={Boolean(isAnty)} />
           <Tags isAnty={Boolean(isAnty)} />
           <SendCookies />
 

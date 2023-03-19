@@ -9,13 +9,8 @@ import DialogChangeIpUrl from "./DialogChangeIpUrl";
 
 const NewProxyChangeIpUrl = () => {
   const { t } = useTranslation();
-  const { setValue, control } = useFormContext();
+  const { setValue, control, watch } = useFormContext();
   const [dialogChangeIpUrlOpened, setDialogChangeIpUrlOpened] = useState(false);
-  const [withChangeIpUrl, setWithChangeIpUrl] = useState(false);
-  const turnOffWithChangeIpUrl = () => {
-    setValue("changeIpUrl", undefined);
-    setWithChangeIpUrl(false);
-  };
 
   return (
     <>
@@ -26,28 +21,34 @@ const NewProxyChangeIpUrl = () => {
         }}
         onAgree={() => {
           setDialogChangeIpUrlOpened(false);
-          setWithChangeIpUrl(true);
+          setValue("withChangeIpUrl", true);
         }}
       />
 
-      <FormControlLabel
-        sx={{ mt: 0.5 }}
-        control={
-          <Switch
-            checked={withChangeIpUrl}
-            onChange={({ target: checked }) => {
-              if (checked) {
-                setDialogChangeIpUrlOpened(true);
-              } else {
-                turnOffWithChangeIpUrl();
-              }
-            }}
+      <Controller
+        name="withChangeIpUrl"
+        control={control}
+        render={({ field }) => (
+          <FormControlLabel
+            sx={{ mt: 0.5 }}
+            control={
+              <Switch
+                checked={field.value}
+                onChange={({ target: { checked } }) => {
+                  if (checked) {
+                    setDialogChangeIpUrlOpened(true);
+                  } else {
+                    setValue("withChangeIpUrl", false);
+                  }
+                }}
+              />
+            }
+            label={t("proxy.sendChangeIpUrl")}
           />
-        }
-        label={t("proxy.sendChangeIpUrl")}
+        )}
       />
 
-      {Boolean(withChangeIpUrl) && (
+      {watch("withChangeIpUrl") && (
         <Controller
           name="changeIpUrl"
           control={control}

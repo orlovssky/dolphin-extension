@@ -1,17 +1,22 @@
 import Autocomplete from "@mui/material/Autocomplete";
+import CircularProgress from "@mui/material/CircularProgress";
 import TextField from "@mui/material/TextField";
 import axios from "axios";
+import { useAntyProfileStore } from "entities/antyData/publicApi";
 import { useDolphinTokenData } from "entities/dolphinData/publicApi";
 import { useEffect, useState } from "react";
 import { Controller, useFormContext } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 
+import MODES from "../../lib/constants/PROXY_MODES";
+import compareProxies from "../../lib/helpers/compareProxies";
 import { ISelectedProxy } from "../../lib/typings/proxy";
 
-const SelectProxy = () => {
+const SelectProxy = ({ isAnty }: { isAnty: boolean }) => {
   const { t } = useTranslation();
+  const antyProfile = useAntyProfileStore((state) => state.profile);
   const dolphinTokenData = useDolphinTokenData();
-  const { control } = useFormContext();
+  const { control, setValue } = useFormContext();
   const [items, setItems] = useState<ISelectedProxy[]>([]);
   const [loading, setLoading] = useState(false);
 
@@ -21,7 +26,7 @@ const SelectProxy = () => {
 
       setLoading(true);
 
-      axios(`${host}/proxy`, {
+      axios<{ success: boolean; data: ISelectedProxy[] }>(`${host}/proxy`, {
         headers: { Authorization: authorization },
       })
         .finally(() => {
@@ -29,6 +34,39 @@ const SelectProxy = () => {
         })
         .then(({ data }) => {
           if (data.success && Array.isArray(data.data)) {
+            if (isAnty && antyProfile?.proxy) {
+              let preselectedProxy = null;
+
+              for (const proxy of data.data) {
+                if (compareProxies(proxy, antyProfile.proxy)) {
+                  preselectedProxy = proxy;
+                  break;
+                }
+              }
+
+              if (preselectedProxy) {
+                setValue("selectedProxy", preselectedProxy);
+              } else {
+                let newProxy = `${antyProfile.proxy.type}://${antyProfile.proxy.host}:${antyProfile.proxy.port}`;
+
+                if (antyProfile.proxy.login && antyProfile.proxy.password) {
+                  newProxy += `:${antyProfile.proxy.login}:${antyProfile.proxy.password}`;
+                }
+
+                if (antyProfile.proxy.name) {
+                  setValue("newProxyName", antyProfile.proxy.name);
+                }
+
+                if (antyProfile.proxy.changeIpUrl) {
+                  setValue("withChangeIpUrl", true);
+                  setValue("changeIpUrl", antyProfile.proxy.changeIpUrl);
+                }
+
+                setValue("newProxy", newProxy);
+                setValue("proxyMode", MODES.NEW_PROXY);
+              }
+            }
+
             setItems(data.data);
           }
         });
@@ -61,6 +99,17 @@ const SelectProxy = () => {
               size="small"
               error={Boolean(error)}
               helperText={error?.message}
+              InputProps={{
+                ...params.InputProps,
+                endAdornment: (
+                  <>
+                    {loading ? (
+                      <CircularProgress color="inherit" size={20} />
+                    ) : null}
+                    {params.InputProps.endAdornment}
+                  </>
+                ),
+              }}
             />
           )}
           onChange={(_, value) => {

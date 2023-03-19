@@ -4,4 +4,6 @@ export { default as useThemeStore } from "./model/store/useThemeStore";
 
 export { getLocalThemeMode } from "./lib/helpers/localThemeMode";
 
+export { default as backgroundMixin } from "./lib/mixins/backgroundMixin";
+
 export { default } from "./ui/Theme";

@@ -9,7 +9,7 @@ import NewProxy from "./NewProxy";
 import SelectProxy from "./SelectProxy";
 import MODES from "../../lib/constants/PROXY_MODES";
 
-const Proxy = () => {
+const Proxy = ({ isAnty }: { isAnty: boolean }) => {
   const { t } = useTranslation();
   const { watch } = useFormContext();
   const mode = watch("proxyMode");
@@ -23,7 +23,7 @@ const Proxy = () => {
 
         <Mode />
         {mode === MODES.NEW_PROXY && <NewProxy />}
-        {mode === MODES.SELECT_PROXY && <SelectProxy />}
+        {mode === MODES.SELECT_PROXY && <SelectProxy isAnty={isAnty} />}
       </CardContent>
     </Card>
   );

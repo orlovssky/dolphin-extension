@@ -53,7 +53,7 @@ const useAddAccount = ({
         port: newProxy.port,
         login: newProxy.login,
         password: newProxy.password,
-        change_ip_url: form.changeIpUrl,
+        change_ip_url: form.withChangeIpUrl ? form.changeIpUrl : "",
       };
     }
 

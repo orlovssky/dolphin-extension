@@ -1,4 +1,5 @@
 import Autocomplete from "@mui/material/Autocomplete";
+import CircularProgress from "@mui/material/CircularProgress";
 import TextField from "@mui/material/TextField";
 import axios from "axios";
 import { useAntyProfileStore } from "entities/antyData/publicApi";
@@ -11,7 +12,7 @@ const Tags = ({ isAnty }: { isAnty: boolean }) => {
   const { t } = useTranslation();
   const antyProfile = useAntyProfileStore((state) => state.profile);
   const dolphinTokenData = useDolphinTokenData();
-  const { control } = useFormContext();
+  const { control, setValue } = useFormContext();
   const [items, setItems] = useState<string[]>([]);
   const [loading, setLoading] = useState(false);
 
@@ -28,17 +29,31 @@ const Tags = ({ isAnty }: { isAnty: boolean }) => {
         })
         .then(({ data }) => {
           if (data.success && Array.isArray(data.data)) {
-            let tags = data.data;
+            const tags = data.data;
 
             if (
               isAnty &&
               antyProfile?.tags &&
               Array.isArray(antyProfile.tags)
             ) {
-              tags = tags.concat(antyProfile.tags);
+              for (const tag of antyProfile.tags) {
+                if (!tags.include(tag)) {
+                  tags.push(tag);
+                }
+              }
             }
 
             setItems(tags);
+          }
+        })
+        .catch(() => {
+          if (isAnty && antyProfile?.tags && Array.isArray(antyProfile.tags)) {
+            setItems(antyProfile.tags);
+          }
+        })
+        .finally(() => {
+          if (isAnty && antyProfile?.tags && Array.isArray(antyProfile.tags)) {
+            setValue("tags", antyProfile.tags);
           }
         });
     }
@@ -63,6 +78,17 @@ const Tags = ({ isAnty }: { isAnty: boolean }) => {
               label={t("common.tags")}
               size="small"
               helperText={t("common.optional")}
+              InputProps={{
+                ...params.InputProps,
+                endAdornment: (
+                  <>
+                    {loading ? (
+                      <CircularProgress color="inherit" size={20} />
+                    ) : null}
+                    {params.InputProps.endAdornment}
+                  </>
+                ),
+              }}
             />
           )}
           onChange={(_, value) => {

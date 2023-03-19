@@ -9,5 +9,6 @@ export interface IForm {
   selectedProxy: ISelectedProxy | null;
   newProxy: string;
   newProxyName: string;
+  withChangeIpUrl: boolean;
   changeIpUrl: string;
 }

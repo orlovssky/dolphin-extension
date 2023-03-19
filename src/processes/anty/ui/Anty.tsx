@@ -1,6 +1,5 @@
 import Box from "@mui/material/Box";
 import CircularProgress from "@mui/material/CircularProgress";
-import { useTheme } from "@mui/material/styles";
 import {
   getAntyDolphinIntegrationToken,
   useProfile,
@@ -10,7 +9,7 @@ import {
   useDolphinProfileStore,
 } from "entities/dolphinData/publicApi";
 import Snackbar, { useSnackBarStore } from "entities/layout/snackBar/publicApi";
-import { THEME_MODES } from "entities/layout/theme/publicApi";
+import { backgroundMixin } from "entities/layout/theme/publicApi";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import AddAccountCard from "widgets/addAccountCard/publicApi";
@@ -19,7 +18,6 @@ import FacebookTokenCard from "widgets/facebookTokenCard/publicApi";
 
 const Anty = () => {
   const { t } = useTranslation();
-  const { palette } = useTheme();
   const { profile } = useDolphinProfileStore((state) => state);
   const openSnackBar = useSnackBarStore((state) => state.openSnackBar);
   const getProfileByToken = useProfileByToken();
@@ -74,15 +72,8 @@ const Anty = () => {
     <Box
       component="main"
       sx={{
+        ...backgroundMixin(),
         p: 2,
-        ...(palette.mode === THEME_MODES.DARK && {
-          color: palette.common.white,
-          backgroundColor: palette.grey["900"],
-        }),
-        ...(palette.mode === THEME_MODES.LIGHT && {
-          color: palette.common.black,
-          backgroundColor: palette.grey["100"],
-        }),
         ...(loading && {
           textAlign: "center",
         }),
