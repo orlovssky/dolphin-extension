@@ -7,12 +7,14 @@ import { useDolphinTokenData } from "entities/dolphinData/publicApi";
 import { useEffect, useState } from "react";
 import { Controller, useFormContext } from "react-hook-form";
 import { useTranslation } from "react-i18next";
+import { usePlatformContext } from "shared/providers/platform/publicApi";
 
-const Tags = ({ isAnty }: { isAnty: boolean }) => {
+const Tags = () => {
   const { t } = useTranslation();
   const antyProfile = useAntyProfileStore((state) => state.profile);
   const dolphinTokenData = useDolphinTokenData();
   const { control, setValue } = useFormContext();
+  const platform = usePlatformContext();
   const [items, setItems] = useState<string[]>([]);
   const [loading, setLoading] = useState(false);
 
@@ -32,7 +34,7 @@ const Tags = ({ isAnty }: { isAnty: boolean }) => {
             const tags = data.data;
 
             if (
-              isAnty &&
+              platform === "anty" &&
               antyProfile?.tags &&
               Array.isArray(antyProfile.tags)
             ) {
@@ -47,12 +49,20 @@ const Tags = ({ isAnty }: { isAnty: boolean }) => {
           }
         })
         .catch(() => {
-          if (isAnty && antyProfile?.tags && Array.isArray(antyProfile.tags)) {
+          if (
+            platform === "anty" &&
+            antyProfile?.tags &&
+            Array.isArray(antyProfile.tags)
+          ) {
             setItems(antyProfile.tags);
           }
         })
         .finally(() => {
-          if (isAnty && antyProfile?.tags && Array.isArray(antyProfile.tags)) {
+          if (
+            platform === "anty" &&
+            antyProfile?.tags &&
+            Array.isArray(antyProfile.tags)
+          ) {
             setValue("tags", antyProfile.tags);
           }
         });

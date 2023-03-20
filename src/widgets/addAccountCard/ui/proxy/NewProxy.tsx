@@ -9,13 +9,15 @@ import { useTranslation } from "react-i18next";
 import DialogHint from "./DialogHint";
 import NewProxyChangeIpUrl from "./NewProxyChangeIpUrl";
 import NewProxyName from "./NewProxyName";
+import MODES from "../../lib/constants/PROXY_MODES";
 
 const NewProxy = () => {
   const { t } = useTranslation();
-  const { control } = useFormContext();
+  const { control, watch } = useFormContext();
+  const mode = watch("proxyMode");
   const [dialogHintOpened, setDialogHintOpened] = useState(false);
 
-  return (
+  return mode === MODES.NEW_PROXY ? (
     <>
       <DialogHint
         isOpened={dialogHintOpened}
@@ -72,7 +74,7 @@ const NewProxy = () => {
       <NewProxyName />
       <NewProxyChangeIpUrl />
     </>
-  );
+  ) : null;
 };
 
 export default NewProxy;

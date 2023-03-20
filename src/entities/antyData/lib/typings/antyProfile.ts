@@ -1,6 +1,7 @@
 import { IProxy } from "./proxy";
 
 interface IProfile {
+  name: string;
   tags?: string[];
   useragent?: {
     mode: string;

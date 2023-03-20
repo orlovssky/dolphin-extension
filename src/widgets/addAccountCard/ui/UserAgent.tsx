@@ -3,15 +3,17 @@ import { useAntyProfileStore } from "entities/antyData/publicApi";
 import { useEffect } from "react";
 import { Controller, useFormContext } from "react-hook-form";
 import { useTranslation } from "react-i18next";
+import { usePlatformContext } from "shared/providers/platform/publicApi";
 import { getCurrentTabInfo } from "shared/utils/chrome/publicApi";
 
-const UserAgent = ({ isAnty }: { isAnty: boolean }) => {
+const UserAgent = () => {
   const { t } = useTranslation();
-  const antyProfile = useAntyProfileStore((state) => state.profile);
   const { control, setValue } = useFormContext();
+  const antyProfile = useAntyProfileStore((state) => state.profile);
+  const platform = usePlatformContext();
 
   useEffect(() => {
-    if (isAnty && antyProfile?.useragent?.value) {
+    if (platform === "anty" && antyProfile?.useragent?.value) {
       setValue("userAgent", antyProfile.useragent.value);
 
       return;

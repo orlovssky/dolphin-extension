@@ -18,7 +18,7 @@ import emptyForm from "../lib/static/emptyForm";
 import { IPostData } from "../lib/typings/account";
 import { IForm } from "../lib/typings/form";
 
-const AddAccountCard = ({ isAnty }: { isAnty?: boolean }) => {
+const AddAccountCard = () => {
   const { t } = useTranslation();
   const openSnackBar = useSnackBarStore((state) => state.openSnackBar);
   const [loading, setLoading] = useState(false);
@@ -69,9 +69,9 @@ const AddAccountCard = ({ isAnty }: { isAnty?: boolean }) => {
       <FormProvider {...formMethods}>
         <form onSubmit={formMethods.handleSubmit(onSubmit)}>
           <AccountName />
-          <UserAgent isAnty={Boolean(isAnty)} />
-          <Proxy isAnty={Boolean(isAnty)} />
-          <Tags isAnty={Boolean(isAnty)} />
+          <UserAgent />
+          <Proxy />
+          <Tags />
           <SendCookies />
 
           <Box sx={{ textAlign: "center", mt: 1 }}>

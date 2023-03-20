@@ -7,16 +7,19 @@ import { useDolphinTokenData } from "entities/dolphinData/publicApi";
 import { useEffect, useState } from "react";
 import { Controller, useFormContext } from "react-hook-form";
 import { useTranslation } from "react-i18next";
+import { usePlatformContext } from "shared/providers/platform/publicApi";
 
 import MODES from "../../lib/constants/PROXY_MODES";
 import compareProxies from "../../lib/helpers/compareProxies";
 import { ISelectedProxy } from "../../lib/typings/proxy";
 
-const SelectProxy = ({ isAnty }: { isAnty: boolean }) => {
+const SelectProxy = () => {
   const { t } = useTranslation();
   const antyProfile = useAntyProfileStore((state) => state.profile);
   const dolphinTokenData = useDolphinTokenData();
-  const { control, setValue } = useFormContext();
+  const { control, setValue, watch } = useFormContext();
+  const platform = usePlatformContext();
+  const mode = watch("proxyMode");
   const [items, setItems] = useState<ISelectedProxy[]>([]);
   const [loading, setLoading] = useState(false);
 
@@ -34,7 +37,7 @@ const SelectProxy = ({ isAnty }: { isAnty: boolean }) => {
         })
         .then(({ data }) => {
           if (data.success && Array.isArray(data.data)) {
-            if (isAnty && antyProfile?.proxy) {
+            if (platform === "anty" && antyProfile?.proxy) {
               let preselectedProxy = null;
 
               for (const proxy of data.data) {
@@ -73,7 +76,7 @@ const SelectProxy = ({ isAnty }: { isAnty: boolean }) => {
     }
   }, []);
 
-  return (
+  return mode === MODES.SELECT_PROXY ? (
     <Controller
       name="selectedProxy"
       control={control}
@@ -118,7 +121,7 @@ const SelectProxy = ({ isAnty }: { isAnty: boolean }) => {
         />
       )}
     />
-  );
+  ) : null;
 };
 
 export default SelectProxy;

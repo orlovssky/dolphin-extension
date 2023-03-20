@@ -1,10 +1,21 @@
 import TextField from "@mui/material/TextField";
+import { useAntyProfileStore } from "entities/antyData/publicApi";
+import { useEffect } from "react";
 import { Controller, useFormContext } from "react-hook-form";
 import { useTranslation } from "react-i18next";
+import { usePlatformContext } from "shared/providers/platform/publicApi";
 
 const AccountName = () => {
   const { t } = useTranslation();
-  const { control } = useFormContext();
+  const { control, setValue } = useFormContext();
+  const antyProfile = useAntyProfileStore((state) => state.profile);
+  const platform = usePlatformContext();
+
+  useEffect(() => {
+    if (platform === "anty" && antyProfile?.name) {
+      setValue("accountName", antyProfile.name);
+    }
+  }, []);
 
   return (
     <Controller
