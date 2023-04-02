@@ -16,7 +16,7 @@ const Title = () => {
   };
 
   if (profile?.id) {
-    const name = profile.display_name || profile.login;
+    const name = profile.username;
 
     return (
       <Tooltip title={name} onClick={() => handleClick(name)}>

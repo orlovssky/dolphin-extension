@@ -1,13 +1,15 @@
 import Autocomplete from "@mui/material/Autocomplete";
 import CircularProgress from "@mui/material/CircularProgress";
 import TextField from "@mui/material/TextField";
-import axios from "axios";
 import { useAntyProfileStore } from "entities/antyData/publicApi";
 import { useDolphinTokenData } from "entities/dolphinData/publicApi";
-import { useEffect, useState } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
 import { Controller, useFormContext } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { usePlatformContext } from "shared/providers/platform/publicApi";
+import { useDebouncedCallback } from "use-debounce";
+
+import getTags from "../api/requests/getTags";
 
 const Tags = () => {
   const { t } = useTranslation();
@@ -17,36 +19,47 @@ const Tags = () => {
   const platform = usePlatformContext();
   const [items, setItems] = useState<string[]>([]);
   const [loading, setLoading] = useState(false);
+  const debounce = useDebouncedCallback(
+    ({ target: { value } }: ChangeEvent<HTMLInputElement>) => {
+      if (dolphinTokenData?.dolphinType === "cloud") {
+        setLoading(true);
+
+        getTags({
+          ...dolphinTokenData,
+          search: value,
+        })
+          .then((data) => {
+            setItems([...new Set(items.concat(data))]);
+          })
+          .finally(() => {
+            setLoading(false);
+          });
+      }
+    },
+    500
+  );
 
   useEffect(() => {
     if (dolphinTokenData) {
-      const { host, authorization } = dolphinTokenData;
-
       setLoading(true);
-      axios(`${host}/tags?only_from=accounts`, {
-        headers: { Authorization: authorization },
-      })
-        .finally(() => {
-          setLoading(false);
-        })
-        .then(({ data }) => {
-          if (data.success && Array.isArray(data.data)) {
-            const tags = data.data;
 
-            if (
-              platform === "anty" &&
-              antyProfile?.tags &&
-              Array.isArray(antyProfile.tags)
-            ) {
-              for (const tag of antyProfile.tags) {
-                if (!tags.include(tag)) {
-                  tags.push(tag);
-                }
+      getTags(dolphinTokenData)
+        .then((data) => {
+          const tags = data;
+
+          if (
+            platform === "anty" &&
+            antyProfile?.tags &&
+            Array.isArray(antyProfile.tags)
+          ) {
+            for (const tag of antyProfile.tags) {
+              if (!tags.includes(tag)) {
+                tags.push(tag);
               }
             }
-
-            setItems(tags);
           }
+
+          setItems(tags);
         })
         .catch(() => {
           if (
@@ -58,6 +71,8 @@ const Tags = () => {
           }
         })
         .finally(() => {
+          setLoading(false);
+
           if (
             platform === "anty" &&
             antyProfile?.tags &&
@@ -99,6 +114,7 @@ const Tags = () => {
                   </>
                 ),
               }}
+              onInput={debounce}
             />
           )}
           onChange={(_, value) => {

@@ -1,12 +1,22 @@
-interface IProfile {
+export interface IProfile {
   id: string;
-  login: string;
-  display_name: string;
+  username: string;
 }
 
-export interface IResponseProfile {
+export interface IServerResponseProfile {
   success: boolean;
-  data: IProfile;
+  data: {
+    id: string;
+    login: string;
+    display_name: string;
+  };
+}
+
+export interface ICloudResponseProfile {
+  data: {
+    id: string;
+    username: string;
+  };
 }
 
 export interface IStore {

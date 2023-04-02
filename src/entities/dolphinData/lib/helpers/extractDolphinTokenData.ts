@@ -2,13 +2,27 @@ import { IDolphinTokenData } from "../typings/dolphinToken";
 
 const extractDolphinTokenData = (token: string): IDolphinTokenData | null => {
   try {
-    const [host, authorization] = window.atob(token).split("::");
+    const decodedToken = window.atob(token);
 
-    if (host && authorization) {
-      return { host, authorization };
-    } else {
-      return null;
+    if (decodedToken.includes("::")) {
+      const [host, authorization] = decodedToken.split("::");
+
+      if (host && authorization) {
+        return {
+          host,
+          authorization,
+          dolphinType: "server",
+        };
+      }
+    } else if (decodedToken.trim()) {
+      return {
+        host: "https://cloud.dolphin.tech/api/v1",
+        authorization: `Bearer ${decodedToken.trim()}`,
+        dolphinType: "cloud",
+      };
     }
+
+    return null;
   } catch (_) {
     return null;
   }

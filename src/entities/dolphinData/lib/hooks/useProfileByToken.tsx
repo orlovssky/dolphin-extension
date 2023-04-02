@@ -1,5 +1,4 @@
 import getProfileByToken from "../../api/requests/getProfileByToken";
-import ERRORS from "../../lib/constants/ERRORS";
 import {
   getLocalDolphinToken,
   setLocalDolphinToken,
@@ -18,13 +17,9 @@ const useProfileByToken = () => {
     if (token === undefined) {
       return getLocalDolphinToken().then((dolphinToken) => {
         return getProfileByToken(dolphinToken)
-          .then(({ data: { success, data: profile } }) => {
-            if (success) {
-              setProfile(profile);
-              setDolphinToken(dolphinToken);
-            } else {
-              throw new Error(ERRORS.PROFILE_RESPONSE_NOT_SUCCESS);
-            }
+          .then((profile) => {
+            setProfile(profile);
+            setDolphinToken(dolphinToken);
           })
           .catch((error) => {
             removeLocalDolphinToken();
@@ -33,17 +28,11 @@ const useProfileByToken = () => {
           });
       });
     } else {
-      return getProfileByToken(token).then(
-        ({ data: { success, data: profile } }) => {
-          if (success) {
-            setProfile(profile);
-            setDolphinToken(token);
-            setLocalDolphinToken(token);
-          } else {
-            throw new Error(ERRORS.PROFILE_RESPONSE_NOT_SUCCESS);
-          }
-        }
-      );
+      return getProfileByToken(token).then((profile) => {
+        setProfile(profile);
+        setDolphinToken(token);
+        setLocalDolphinToken(token);
+      });
     }
   };
 };

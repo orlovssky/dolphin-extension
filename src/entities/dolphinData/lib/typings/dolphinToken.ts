@@ -7,4 +7,5 @@ export interface IStore {
 export interface IDolphinTokenData {
   host: string;
   authorization: string;
+  dolphinType: "server" | "cloud";
 }
