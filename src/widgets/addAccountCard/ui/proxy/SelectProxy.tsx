@@ -1,14 +1,15 @@
 import Autocomplete from "@mui/material/Autocomplete";
 import CircularProgress from "@mui/material/CircularProgress";
 import TextField from "@mui/material/TextField";
-import axios from "axios";
 import { useAntyProfileStore } from "entities/antyData/publicApi";
 import { useDolphinTokenData } from "entities/dolphinData/publicApi";
-import { useEffect, useState } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
 import { Controller, useFormContext } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { usePlatformContext } from "shared/providers/platform/publicApi";
+import { useDebouncedCallback } from "use-debounce";
 
+import getProxies from "../../api/requests/getProxies";
 import MODES from "../../lib/constants/PROXY_MODES";
 import compareProxies from "../../lib/helpers/compareProxies";
 import { ISelectedProxy } from "../../lib/typings/proxy";
@@ -22,56 +23,69 @@ const SelectProxy = () => {
   const mode = watch("proxyMode");
   const [items, setItems] = useState<ISelectedProxy[]>([]);
   const [loading, setLoading] = useState(false);
+  const debounce = useDebouncedCallback(
+    ({ target: { value } }: ChangeEvent<HTMLInputElement>) => {
+      if (dolphinTokenData?.dolphinType === "cloud") {
+        setLoading(true);
+
+        getProxies({
+          ...dolphinTokenData,
+          search: value,
+        })
+          .then((data) => {
+            setItems([...new Set(items.concat(data))]);
+          })
+          .finally(() => {
+            setLoading(false);
+          });
+      }
+    },
+    500
+  );
 
   useEffect(() => {
     if (dolphinTokenData) {
-      const { host, authorization } = dolphinTokenData;
-
       setLoading(true);
 
-      axios<{ success: boolean; data: ISelectedProxy[] }>(`${host}/proxy`, {
-        headers: { Authorization: authorization },
-      })
+      getProxies(dolphinTokenData)
         .finally(() => {
           setLoading(false);
         })
-        .then(({ data }) => {
-          if (data.success && Array.isArray(data.data)) {
-            if (platform === "anty" && antyProfile?.proxy) {
-              let preselectedProxy = null;
+        .then((data) => {
+          if (platform === "anty" && antyProfile?.proxy) {
+            let preselectedProxy = null;
 
-              for (const proxy of data.data) {
-                if (compareProxies(proxy, antyProfile.proxy)) {
-                  preselectedProxy = proxy;
-                  break;
-                }
-              }
-
-              if (preselectedProxy) {
-                setValue("selectedProxy", preselectedProxy);
-              } else {
-                let newProxy = `${antyProfile.proxy.type}://${antyProfile.proxy.host}:${antyProfile.proxy.port}`;
-
-                if (antyProfile.proxy.login && antyProfile.proxy.password) {
-                  newProxy += `:${antyProfile.proxy.login}:${antyProfile.proxy.password}`;
-                }
-
-                if (antyProfile.proxy.name) {
-                  setValue("newProxyName", antyProfile.proxy.name);
-                }
-
-                if (antyProfile.proxy.changeIpUrl) {
-                  setValue("withChangeIpUrl", true);
-                  setValue("changeIpUrl", antyProfile.proxy.changeIpUrl);
-                }
-
-                setValue("newProxy", newProxy);
-                setValue("proxyMode", MODES.NEW_PROXY);
+            for (const proxy of data) {
+              if (compareProxies(proxy, antyProfile.proxy)) {
+                preselectedProxy = proxy;
+                break;
               }
             }
 
-            setItems(data.data);
+            if (preselectedProxy) {
+              setValue("selectedProxy", preselectedProxy);
+            } else {
+              let newProxy = `${antyProfile.proxy.type}://${antyProfile.proxy.host}:${antyProfile.proxy.port}`;
+
+              if (antyProfile.proxy.login && antyProfile.proxy.password) {
+                newProxy += `:${antyProfile.proxy.login}:${antyProfile.proxy.password}`;
+              }
+
+              if (antyProfile.proxy.name) {
+                setValue("newProxyName", antyProfile.proxy.name);
+              }
+
+              if (antyProfile.proxy.changeIpUrl) {
+                setValue("withChangeIpUrl", true);
+                setValue("changeIpUrl", antyProfile.proxy.changeIpUrl);
+              }
+
+              setValue("newProxy", newProxy);
+              setValue("proxyMode", MODES.NEW_PROXY);
+            }
           }
+
+          setItems(data);
         });
     }
   }, []);
@@ -113,6 +127,7 @@ const SelectProxy = () => {
                   </>
                 ),
               }}
+              onInput={debounce}
             />
           )}
           onChange={(_, value) => {

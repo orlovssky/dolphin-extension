@@ -13,11 +13,22 @@ export interface IProxy {
 }
 
 export interface ISelectedProxy {
-  id: number;
+  id: number | string;
   name: string;
   type: string;
   ip: string;
   port: number;
+  login: string;
+  password: string;
+  change_ip_url: string;
+}
+
+export interface ICloudProxy {
+  id: string;
+  name: string;
+  type: string;
+  host: string;
+  port: string;
   login: string;
   password: string;
   change_ip_url: string;

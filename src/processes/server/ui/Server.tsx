@@ -4,6 +4,7 @@ import {
   useProfileByToken,
   useDolphinProfileStore,
 } from "entities/dolphinData/publicApi";
+import { useAccessTokenStore } from "entities/facebookData/publicApi";
 import Snackbar, { useSnackBarStore } from "entities/layout/snackBar/publicApi";
 import { backgroundMixin } from "entities/layout/theme/publicApi";
 import { useEffect, useState } from "react";
@@ -16,6 +17,7 @@ const Server = () => {
   const { t } = useTranslation();
   const { profile } = useDolphinProfileStore((state) => state);
   const openSnackBar = useSnackBarStore((state) => state.openSnackBar);
+  const accessToken = useAccessTokenStore((state) => state.accessToken);
   const getProfileByToken = useProfileByToken();
   const [loading, setLoading] = useState(false);
   const renderContent = () => {
@@ -25,7 +27,7 @@ const Server = () => {
       return (
         <>
           <FacebookTokenCard />
-          <AddAccountCard />
+          {accessToken && <AddAccountCard />}
         </>
       );
     } else {
