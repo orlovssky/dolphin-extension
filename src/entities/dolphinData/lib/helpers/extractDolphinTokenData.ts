@@ -8,7 +8,7 @@ const extractDolphinTokenData = (token: string): IDolphinTokenData | null => {
     if (host && authorization && type === "cloud") {
       return {
         host,
-        authorization: `Bearer ${decodedToken.trim()}`,
+        authorization: `Bearer ${authorization}`,
         dolphinType: "cloud",
       };
     } else if (host && authorization) {
