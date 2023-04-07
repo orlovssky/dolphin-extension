@@ -1,14 +1,11 @@
 import ContentCopyIcon from "@mui/icons-material/ContentCopy";
 import Alert from "@mui/material/Alert";
 import IconButton from "@mui/material/IconButton";
-import {
-  extractAccessToken,
-  useAccessTokenStore,
-} from "entities/facebookData/publicApi";
-import { useSnackBarStore } from "entities/layout/snackBar/publicApi";
+import { extractAccessToken, useAccessTokenStore } from "entities/facebookData";
+import { useSnackBarStore } from "entities/layout/snackBar";
 import { useEffect } from "react";
 import { useTranslation } from "react-i18next";
-import Card from "shared/ui/card/publicApi";
+import Card from "shared/ui/card";
 
 const FacebookTokenCard = () => {
   const { t } = useTranslation();

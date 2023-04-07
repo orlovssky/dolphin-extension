@@ -1,10 +1,10 @@
 import TextField from "@mui/material/TextField";
-import { useAntyProfileStore } from "entities/antyData/publicApi";
+import { useAntyProfileStore } from "entities/antyData";
 import { useEffect } from "react";
 import { Controller, useFormContext } from "react-hook-form";
 import { useTranslation } from "react-i18next";
-import { usePlatformContext } from "shared/providers/platform/publicApi";
-import { getCurrentTabInfo } from "shared/utils/chrome/publicApi";
+import { usePlatformContext } from "shared/providers/platform";
+import { getCurrentTabInfo } from "shared/utils/chrome";
 
 const UserAgent = () => {
   const { t } = useTranslation();

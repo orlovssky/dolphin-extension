@@ -1,7 +1,7 @@
-import Server from "processes/server/publicApi";
+import Server from "processes/server";
 import { StrictMode } from "react";
 import ReactDOM from "react-dom/client";
-import PlatformProvider from "shared/providers/platform/publicApi";
+import PlatformProvider from "shared/providers/platform";
 
 import ThemeProvider from "../../providers/ThemeProvider";
 

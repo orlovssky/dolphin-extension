@@ -1,12 +1,12 @@
 import Autocomplete from "@mui/material/Autocomplete";
 import CircularProgress from "@mui/material/CircularProgress";
 import TextField from "@mui/material/TextField";
-import { useAntyProfileStore } from "entities/antyData/publicApi";
-import { useDolphinTokenData } from "entities/dolphinData/publicApi";
+import { useAntyProfileStore } from "entities/antyData";
+import { useDolphinTokenData } from "entities/dolphinData";
 import { ChangeEvent, useEffect, useState } from "react";
 import { Controller, useFormContext } from "react-hook-form";
 import { useTranslation } from "react-i18next";
-import { usePlatformContext } from "shared/providers/platform/publicApi";
+import { usePlatformContext } from "shared/providers/platform";
 import { useDebouncedCallback } from "use-debounce";
 
 import getTags from "../api/requests/getTags";

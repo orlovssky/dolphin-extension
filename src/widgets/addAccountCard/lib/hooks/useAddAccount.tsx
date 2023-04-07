@@ -1,4 +1,4 @@
-import { useAccessTokenStore } from "entities/facebookData/publicApi";
+import { useAccessTokenStore } from "entities/facebookData";
 import { useForm, UseFormReset } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 
@@ -25,6 +25,7 @@ const useAddAccount = ({
   const formMethods = useForm<IForm>({
     defaultValues: structuredClone(emptyForm),
   });
+
   const onSubmit = (form: IForm) => {
     const data: IPostData = {
       access_token: accessToken,

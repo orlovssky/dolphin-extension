@@ -20,6 +20,11 @@
       "jsx": true
     }
   },
+  "settings": {
+    "react": {
+      "version": "detect"
+    }
+  },
   "plugins": ["prettier"],
   "rules": {
     "prettier/prettier": "error",
@@ -32,12 +37,12 @@
     ],
     "padding-line-between-statements": [
       "error",
-      { "blankLine": "always", "prev": "*", "next": "export" },
-      { "blankLine": "always", "prev": "*", "next": "if" },
-      { "blankLine": "always", "prev": "if", "next": "*" },
-      { "blankLine": "always", "prev": "*", "next": "switch" },
-      { "blankLine": "always", "prev": "switch", "next": "*" },
-      { "blankLine": "always", "prev": "*", "next": "return" }
+      { "blankLine": "always", "prev": "block-like", "next": "*" },
+      { "blankLine": "always", "prev": "*", "next": "block-like" },
+      { "blankLine": "always", "prev": "*", "next": "break" },
+      { "blankLine": "always", "prev": "*", "next": "continue" },
+      { "blankLine": "always", "prev": "*", "next": "return" },
+      { "blankLine": "always", "prev": "*", "next": "export" }
     ],
     "react/function-component-definition": [
       "error",

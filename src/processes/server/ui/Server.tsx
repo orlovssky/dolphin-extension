@@ -3,15 +3,15 @@ import CircularProgress from "@mui/material/CircularProgress";
 import {
   useProfileByToken,
   useDolphinProfileStore,
-} from "entities/dolphinData/publicApi";
-import { useAccessTokenStore } from "entities/facebookData/publicApi";
-import Snackbar, { useSnackBarStore } from "entities/layout/snackBar/publicApi";
-import { backgroundMixin } from "entities/layout/theme/publicApi";
+} from "entities/dolphinData";
+import { useAccessTokenStore } from "entities/facebookData";
+import Snackbar, { useSnackBarStore } from "entities/layout/snackBar";
+import { backgroundMixin } from "entities/layout/theme";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import AddAccountCard from "widgets/addAccountCard/publicApi";
-import DolphinConnectionCard from "widgets/dolphinConnectionCard/publicApi";
-import FacebookTokenCard from "widgets/facebookTokenCard/publicApi";
+import AddAccountCard from "widgets/addAccountCard";
+import DolphinConnectionCard from "widgets/dolphinConnectionCard";
+import FacebookTokenCard from "widgets/facebookTokenCard";
 
 const Server = () => {
   const { t } = useTranslation();
@@ -20,6 +20,7 @@ const Server = () => {
   const accessToken = useAccessTokenStore((state) => state.accessToken);
   const getProfileByToken = useProfileByToken();
   const [loading, setLoading] = useState(false);
+
   const renderContent = () => {
     if (loading) {
       return <CircularProgress />;

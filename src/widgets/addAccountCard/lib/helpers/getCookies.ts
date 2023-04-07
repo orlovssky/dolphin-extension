@@ -1,4 +1,4 @@
-import { getUrlDomain, getCurrentTabInfo } from "shared/utils/chrome/publicApi";
+import { getUrlDomain, getCurrentTabInfo } from "shared/utils/chrome";
 
 import Cookie = chrome.cookies.Cookie;
 

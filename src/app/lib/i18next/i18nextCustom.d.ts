@@ -1,7 +1,7 @@
 // noinspection JSUnusedGlobalSymbols
 
 import "i18next";
-import { TLocale } from "entities/layout/locale/publicApi";
+import { TLocale } from "entities/layout/locale";
 
 declare module "i18next" {
   interface CustomTypeOptions {

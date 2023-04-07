@@ -1,5 +1,5 @@
 import axios from "axios";
-import { IDolphinTokenData } from "entities/dolphinData/publicApi";
+import { IDolphinTokenData } from "entities/dolphinData";
 
 import { ISelectedProxy, ICloudProxy } from "../../lib/typings/proxy";
 

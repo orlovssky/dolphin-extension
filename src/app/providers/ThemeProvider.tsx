@@ -5,21 +5,22 @@ import {
 } from "@mui/material/styles";
 import Toolbar from "@mui/material/Toolbar";
 import useMediaQuery from "@mui/material/useMediaQuery";
-import { TLocale, getLocalLocale } from "entities/layout/locale/publicApi";
+import { TLocale, getLocalLocale } from "entities/layout/locale";
 import {
   THEME_MODES,
   useThemeStore,
   getLocalThemeMode,
-} from "entities/layout/theme/publicApi";
+} from "entities/layout/theme";
 import { ReactNode, useEffect, useMemo } from "react";
-import AppBar from "widgets/layout/publicApi";
+import AppBar from "widgets/layout";
 
-import i18n from "../lib/i18next";
+import i18n from "../lib/i18next/i18next";
 import localizations from "../lib/static/localizations";
 
 const ThemeProvider = ({ children }: { children: ReactNode }) => {
   const { mode, setMode } = useThemeStore((state) => state);
   const prefersDarkMode = useMediaQuery("(prefers-color-scheme: dark)");
+
   const generatePalette = () => {
     const palette = {
       mode: prefersDarkMode ? THEME_MODES.DARK : THEME_MODES.LIGHT,

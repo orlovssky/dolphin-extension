@@ -1,7 +1,7 @@
 import Tooltip from "@mui/material/Tooltip";
 import Typography from "@mui/material/Typography";
-import { useDolphinProfileStore } from "entities/dolphinData/publicApi";
-import { useSnackBarStore } from "entities/layout/snackBar/publicApi";
+import { useDolphinProfileStore } from "entities/dolphinData";
+import { useSnackBarStore } from "entities/layout/snackBar";
 import { useTranslation } from "react-i18next";
 
 const Title = () => {

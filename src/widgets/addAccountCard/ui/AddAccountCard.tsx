@@ -1,12 +1,12 @@
 import LoadingButton from "@mui/lab/LoadingButton";
 import Box from "@mui/material/Box";
-import { useDolphinTokenData } from "entities/dolphinData/publicApi";
-import { useAccessTokenStore } from "entities/facebookData/publicApi";
-import { useSnackBarStore } from "entities/layout/snackBar/publicApi";
+import { useDolphinTokenData } from "entities/dolphinData";
+import { useAccessTokenStore } from "entities/facebookData";
+import { useSnackBarStore } from "entities/layout/snackBar";
 import { useState } from "react";
 import { FormProvider, UseFormReset } from "react-hook-form";
 import { useTranslation } from "react-i18next";
-import Card from "shared/ui/card/publicApi";
+import Card from "shared/ui/card";
 
 import AccountName from "./AccountName";
 import Proxy from "./proxy/Proxy";
@@ -25,6 +25,7 @@ const AddAccountCard = () => {
   const [loading, setLoading] = useState(false);
   const dolphinTokenData = useDolphinTokenData();
   const accessToken = useAccessTokenStore((state) => state.accessToken);
+
   const handleAddAccount = ({
     data,
     reset,
@@ -60,6 +61,7 @@ const AddAccountCard = () => {
         });
     }
   };
+
   const { formMethods, onSubmit } = useAddAccount({
     addAccount: handleAddAccount,
   });

@@ -8,11 +8,11 @@ import {
   useDolphinTokenStore,
   useProfileByToken,
   DOLPHIN_DATA_ERRORS,
-} from "entities/dolphinData/publicApi";
-import { useSnackBarStore } from "entities/layout/snackBar/publicApi";
+} from "entities/dolphinData";
+import { useSnackBarStore } from "entities/layout/snackBar";
 import { ChangeEvent, useState } from "react";
 import { useTranslation } from "react-i18next";
-import Card from "shared/ui/card/publicApi";
+import Card from "shared/ui/card";
 
 const DolphinConnectionCard = () => {
   const { t } = useTranslation();
@@ -21,6 +21,7 @@ const DolphinConnectionCard = () => {
   const getProfileByToken = useProfileByToken();
   const [token, setToken] = useState("");
   const [loading, setLoading] = useState(false);
+
   const handleClick = () => {
     setLoading(true);
     getProfileByToken(token)
@@ -39,9 +40,11 @@ const DolphinConnectionCard = () => {
         switch (error.message) {
           case DOLPHIN_DATA_ERRORS.INVALID_TOKEN:
             message = t("dolphin.invalidDolphinToken");
+
             break;
           case DOLPHIN_DATA_ERRORS.PROFILE_RESPONSE_NOT_SUCCESS:
             message = t("dolphin.connectionNotEstablished");
+
             break;
         }
 

@@ -1,6 +1,6 @@
 import LogoutOutlinedIcon from "@mui/icons-material/LogoutOutlined";
 import IconButton from "@mui/material/IconButton";
-import { useClearData } from "entities/dolphinData/publicApi";
+import { useClearData } from "entities/dolphinData";
 
 const SignOut = () => {
   const clearFacebookData = useClearData();

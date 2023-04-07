@@ -1,7 +1,7 @@
-import Anty from "processes/anty/publicApi";
+import Anty from "processes/anty";
 import { StrictMode } from "react";
 import ReactDOM from "react-dom/client";
-import PlatformProvider from "shared/providers/platform/publicApi";
+import PlatformProvider from "shared/providers/platform";
 
 import ThemeProvider from "../../providers/ThemeProvider";
 

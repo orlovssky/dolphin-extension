@@ -1593,10 +1593,10 @@ eslint-module-utils@^2.7.4:
   dependencies:
     debug "^3.2.7"
 
-eslint-plugin-fsd-principles@^0.0.6:
-  version "0.0.6"
-  resolved "https://registry.yarnpkg.com/eslint-plugin-fsd-principles/-/eslint-plugin-fsd-principles-0.0.6.tgz#8347c4bb6edd09f45685099c36dad99f07e9a758"
-  integrity sha512-ry+yqsPnSvxl7GxL+ssDnpLpF+Xk7NSKH3lcksfK1YRA6D+GeVVKsyx9he72Re02Ht6urNdJghHxkGIJWrCZ8A==
+eslint-plugin-fsd-principles@^1.0.21:
+  version "1.0.21"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-fsd-principles/-/eslint-plugin-fsd-principles-1.0.21.tgz#4820e6bdde346f0f6d0ccd9ca8cf3f072f37123d"
+  integrity sha512-sViFJ/a57elicupgk7BA3vB3UHtBGQ33tIX6sjNGyo707Tcz5p2Ci4fmjUuiVGHDMTHwAnLzJuYEo+/+iplHNA==
 
 eslint-plugin-import@^2.27.5:
   version "2.27.5"

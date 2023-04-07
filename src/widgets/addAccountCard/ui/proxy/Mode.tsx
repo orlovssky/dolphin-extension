@@ -1,7 +1,7 @@
 import ToggleButton from "@mui/material/ToggleButton";
 import ToggleButtonGroup from "@mui/material/ToggleButtonGroup";
 import Typography from "@mui/material/Typography";
-import { useDolphinTokenData } from "entities/dolphinData/publicApi";
+import { useDolphinTokenData } from "entities/dolphinData";
 import { createElement } from "react";
 import { Controller, useFormContext } from "react-hook-form";
 import { useTranslation } from "react-i18next";

@@ -18,6 +18,7 @@ const Theme = ({
 }) => {
   const { t } = useTranslation();
   const { mode, setMode } = useThemeStore((state) => state);
+
   const handleChange = (event: MouseEvent<HTMLElement>, value: TMode) => {
     if (!value || value === mode) return;
 

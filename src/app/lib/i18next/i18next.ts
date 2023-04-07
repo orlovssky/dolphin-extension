@@ -1,4 +1,4 @@
-import { LOCALES } from "entities/layout/locale/publicApi";
+import { LOCALES } from "entities/layout/locale";
 import i18n from "i18next";
 import { initReactI18next } from "react-i18next";
 

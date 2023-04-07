@@ -1,6 +1,6 @@
 import MuiAppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
-import { useDolphinProfileStore } from "entities/dolphinData/publicApi";
+import { useDolphinProfileStore } from "entities/dolphinData";
 
 import SettingsBar from "./SettingsBar";
 import SignOut from "./SignOut";

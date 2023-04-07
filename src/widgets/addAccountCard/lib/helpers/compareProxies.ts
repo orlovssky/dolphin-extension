@@ -1,4 +1,4 @@
-import { IAntyProxy } from "entities/antyData/publicApi";
+import { IAntyProxy } from "entities/antyData";
 
 import { ISelectedProxy } from "../typings/proxy";
 

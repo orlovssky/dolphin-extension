@@ -1,4 +1,4 @@
-import { getCurrentTabInfo } from "shared/utils/chrome/publicApi";
+import { getCurrentTabInfo } from "shared/utils/chrome";
 
 import InjectionResult = chrome.scripting.InjectionResult;
 

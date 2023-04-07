@@ -17,6 +17,7 @@ const Locale = ({
   toggleButtonGroupProps?: ToggleButtonGroupProps;
 }) => {
   const { i18n } = useTranslation();
+
   const handleChange = (event: MouseEvent<HTMLElement>, value: TLocale) => {
     if (!value || value === i18n.language) return;
 
@@ -24,6 +25,7 @@ const Locale = ({
       setLocalLocale(value);
     });
   };
+
   const getLocaleText = (locale: TLocale): string => {
     switch (locale) {
       case LOCALES.RUSSIAN:
