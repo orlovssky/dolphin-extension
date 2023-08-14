@@ -4,9 +4,5 @@
     "module": "ESNext",
     "moduleResolution": "Node",
     "allowSyntheticDefaultImports": true
-  },
-  "include": [
-    "src/app/entries/server/manifest.ts",
-    "src/app/entries/anty/manifest.ts"
-  ]
+  }
 }

@@ -1,34 +1,37 @@
 // noinspection JSUnusedGlobalSymbols
 
-import { crx, ManifestV3Export } from "@crxjs/vite-plugin";
-import react from "@vitejs/plugin-react";
-import { defineConfig, loadEnv } from "vite";
-import { createHtmlPlugin } from "vite-plugin-html";
-import tsconfigPaths from "vite-tsconfig-paths";
+import { crx } from '@crxjs/vite-plugin'
+import react from '@vitejs/plugin-react'
+import autoprefixer from 'autoprefixer'
+import tsconfigPaths from 'vite-tsconfig-paths'
+import { defineConfig } from 'vite'
 
-import antyManifest from "./src/app/entries/anty/manifest";
-import serverManifest from "./src/app/entries/server/manifest";
+import { antyManifest, dolphinManifest } from './src/shared/crx'
+import { VITE_MODE } from './src/shared/vite'
 
-const manifest: { [key: string]: ManifestV3Export } = {
-  server: serverManifest,
-  anty: antyManifest,
-};
+const manifests = {
+  [VITE_MODE.DOLPHIN]: dolphinManifest,
+  [VITE_MODE.ANTY]: antyManifest,
+}
 
 export default defineConfig(({ mode }) => {
-  const { BUILD_FOR } = loadEnv(mode, process.cwd(), "");
-  const entry = `./src/app/entries/${BUILD_FOR}/main.tsx`;
+  const viteMode = mode as VITE_MODE
 
   return {
     plugins: [
       react(),
       tsconfigPaths(),
       crx({
-        manifest: manifest[BUILD_FOR],
-      }),
-      createHtmlPlugin({
-        entry,
-        minify: true,
+        manifest: manifests[viteMode],
       }),
     ],
-  };
-});
+    css: {
+      postcss: {
+        plugins: [autoprefixer()],
+      },
+    },
+    build: {
+      chunkSizeWarningLimit: 1000,
+    },
+  }
+})

@@ -1,0 +1,19 @@
+/* https://notofonts.github.io/latin-greek-cyrillic */
+
+/*400*/
+@font-face {
+  font-family: 'NotoSans';
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+  src: local('Noto Sans Regular'), local('NotoSans-Regular'), url('/src/app/assets/fonts/NotoSans/NotoSans-Regular.ttf')  format('truetype');
+}
+
+/*500*/
+@font-face {
+  font-family: 'NotoSans';
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+  src: local('Noto Sans Medium'), local('NotoSans-Medium'), url('/src/app/assets/fonts/NotoSans/NotoSans-Medium.ttf')  format('truetype');
+}
